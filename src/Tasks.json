@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "text": "first todo",
+    "important": false,
+    "completed": false,
+    "category": "All tasks"
+  },
+  {
+    "id": "2",
+    "text": "second todo",
+    "important": false,
+    "completed": false,
+    "category": "All tasks"
+  },
+  {
+    "id": "3",
+    "text": "completed important todo",
+    "important": true,
+    "completed": true,
+    "category": "All tasks"
+  }
+]

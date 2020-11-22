@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1",
+    "name": "All tasks",
+    "deletable": false,
+    "textColor": "#788CDE",
+    "icon": ""
+  },
+  {
+    "id": "2",
+    "name": "Important",
+    "deletable": false,
+    "textColor": "#ffffff",
+    "icon": ""
+  }
+]
