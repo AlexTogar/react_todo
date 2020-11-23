@@ -4,20 +4,20 @@
     "text": "first todo",
     "important": false,
     "completed": false,
-    "category": "All tasks"
+    "categoryId": "1"
   },
   {
     "id": "2",
     "text": "second todo",
     "important": false,
     "completed": false,
-    "category": "All tasks"
+    "categoryId": "1"
   },
   {
     "id": "3",
     "text": "completed important todo",
     "important": true,
     "completed": true,
-    "category": "All tasks"
+    "categoryId": "1"
   }
 ]

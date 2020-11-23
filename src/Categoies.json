@@ -4,13 +4,17 @@
     "name": "All tasks",
     "deletable": false,
     "textColor": "#788CDE",
-    "icon": ""
+    "numOfTasks": 0,
+    "icon": "",
+    "selected": true
   },
   {
     "id": "2",
     "name": "Important",
     "deletable": false,
     "textColor": "#ffffff",
-    "icon": ""
+    "numOfTasks": 0,
+    "icon": "",
+    "selected": false
   }
 ]
