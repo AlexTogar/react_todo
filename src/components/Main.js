@@ -40,8 +40,8 @@ export default class Main extends Component {
         <TaskContainer
           tasks={currentTasks}
           onDeleteTask={this.props.onDeleteTask}
-          onCompleteTask={this.props.onCompleteTask}
-          onMarkAsImportantTask={this.props.onMarkAsImportantTask}
+          onToggleCompleteTask={this.props.onToggleCompleteTask}
+          onToggleImportantTask={this.props.onToggleImportantTask}
           onUpdateTask={this.props.onUpdateTask}
         />
         <CompletedTasksContainer completedTasks={completedTasks} />

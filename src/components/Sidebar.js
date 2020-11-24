@@ -35,7 +35,7 @@ export default class Sidebar extends Component {
         >
           {cat.name}----{cat.numOfTasks}
           <button
-            className='delete-button'
+            className={'delete-button id'}
             onClick={() => {
               this.props.onDeleteCategory(cat.id);
             }}

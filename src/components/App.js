@@ -40,8 +40,8 @@ export default class App extends Component {
 
     this.createTask = this.createTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
-    this.completeTask = this.completeTask.bind(this);
-    this.markAsImportantTask = this.markAsImportantTask.bind(this);
+    this.toggleCompleteTask = this.toggleCompleteTask.bind(this);
+    this.toggleImportantTask = this.toggleImportantTask.bind(this);
     this.updateTask = this.updateTask.bind(this);
     this.createCategory = this.createCategory.bind(this);
     this.deleteCategory = this.deleteCategory.bind(this);
@@ -75,14 +75,27 @@ export default class App extends Component {
    * @param {string} id
    * @returns {void}
    */
-  completeTask(id) {}
+  toggleCompleteTask(id) {
+    this.setState((state) => {
+      const task = state.tasks.find((task) => task.id === id);
+      task.completed = !task.completed;
+      return state;
+    });
+  }
 
   /**
    *
    * @param {string} id
    * @returns {void}
    */
-  markAsImportantTask(id) {}
+  toggleImportantTask(id) {
+    this.setState((state) => {
+      console.log(id, state.tasks);
+      const task = state.tasks.find((task) => task.id === id);
+      task.important = !task.important;
+      return state;
+    });
+  }
 
   /**
    *
@@ -109,6 +122,8 @@ export default class App extends Component {
    */
   deleteCategory(id) {
     this.setState((state) => {
+      console.log(state.categories);
+      console.log(id);
       return {
         categories: state.categories.filter((cat) => cat.id !== id),
       };
@@ -135,6 +150,7 @@ export default class App extends Component {
     const completedTasks = this.state.tasks.filter(
       (task) => task.completed === true
     );
+
     return (
       <div className='App'>
         <Sidebar
@@ -149,8 +165,8 @@ export default class App extends Component {
           completedTasks={completedTasks}
           onCreateTask={this.createTask}
           onDeleteTask={this.deleteTask}
-          onCompleteTask={this.completeTask}
-          onMarkAsImportantTask={this.markAsImportantTask}
+          onToggleCompleteTask={this.toggleCompleteTask}
+          onToggleImportantTask={this.toggleImportantTask}
           onUpdateTask={this.updateTask}
         />
       </div>
