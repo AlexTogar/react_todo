@@ -6,25 +6,42 @@ import Categories from '../Categoies.json';
 import '../styles/App.css';
 import { v4 as uuidv4 } from 'uuid';
 
+const ALL_TASKS_CAT_ID = '1';
+const BLUE = '#788CDE';
+
 class Task {
-  constructor(text = '', categoryId) {
-    this.id = uuidv4();
+  constructor(
+    text = '',
+    categoryId,
+    completed = false,
+    important = false,
+    id = uuidv4()
+  ) {
     this.text = text;
-    this.important = false;
-    this.completed = false;
     this.categoryId = categoryId;
+    this.completed = completed;
+    this.important = important;
+    this.id = id;
   }
 }
 
 class Category {
-  constructor(name, icon = '') {
-    this.id = uuidv4();
+  constructor(
+    name,
+    icon = '',
+    selected = false,
+    deletable = false,
+    textColor = BLUE,
+    numOfTasks = 0,
+    id = uuidv4()
+  ) {
     this.name = name;
-    this.deletable = false;
-    this.textColor = '#788CDE';
-    this.numOfTasks = 0;
     this.icon = icon;
-    this.selected = false;
+    this.selected = selected;
+    this.deletable = deletable;
+    this.textColor = textColor;
+    this.numOfTasks = numOfTasks;
+    this.id = id;
   }
 }
 
@@ -111,7 +128,11 @@ export default class App extends Component {
    */
   createCategory(name) {
     this.setState((state) => {
-      return { categories: state.categories.concat(new Category(name)) };
+      return {
+        categories: state.categories.concat(
+          new Category(name, '', false, true)
+        ),
+      };
     });
   }
 
@@ -121,9 +142,22 @@ export default class App extends Component {
    * @returns {void}
    */
   deleteCategory(id) {
+    const category = this.state.categories.find((cat) => cat.id === id);
+    if (category.selected) {
+      this.setState((state) => {
+        return {
+          categories: state.categories.map((cat) => {
+            if (cat.id === ALL_TASKS_CAT_ID) {
+              cat.selected = true;
+              return cat;
+            }
+            return cat;
+          }),
+        };
+      });
+    }
+
     this.setState((state) => {
-      console.log(state.categories);
-      console.log(id);
       return {
         categories: state.categories.filter((cat) => cat.id !== id),
       };

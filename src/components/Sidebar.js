@@ -29,19 +29,26 @@ export default class Sidebar extends Component {
         <li
           key={cat.id}
           style={cat.selected ? { color: 'red' } : { color: 'black' }}
-          onClick={() => {
-            this.props.onSelectCategory(cat.id);
-          }}
         >
-          {cat.name}----{cat.numOfTasks}
-          <button
-            className={'delete-button id'}
+          <span
             onClick={() => {
-              this.props.onDeleteCategory(cat.id);
+              this.props.onSelectCategory(cat.id);
             }}
           >
-            X
-          </button>
+            {cat.name}----{cat.numOfTasks}
+          </span>
+          {cat.deletable ? (
+            <button
+              className={'delete-button id'}
+              onClick={() => {
+                this.props.onDeleteCategory(cat.id);
+              }}
+            >
+              X
+            </button>
+          ) : (
+            <></>
+          )}
         </li>
       );
     });
