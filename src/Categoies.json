@@ -5,7 +5,7 @@
     "deletable": false,
     "textColor": "#788CDE",
     "numOfTasks": 0,
-    "icon": "",
+    "icon": "all-tasks",
     "selected": true
   },
   {
@@ -14,7 +14,7 @@
     "deletable": false,
     "textColor": "#ffffff",
     "numOfTasks": 0,
-    "icon": "",
+    "icon": "important",  
     "selected": false
   }
 ]

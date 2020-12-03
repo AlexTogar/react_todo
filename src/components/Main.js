@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import TaskContainer from './TasksContainer';
-import CompletedTasksContainer from './CompletedTasksContainer';
-import '../styles/Main.css';
+import TaskContainer from './TaskContainer';
+import CompletedTaskContainer from './CompletedTaskContainer';
 
 export default class Main extends Component {
   constructor(props) {
@@ -35,26 +34,38 @@ export default class Main extends Component {
     const currentTasks = this.props.currentTasks;
     const completedTasks = this.props.completedTasks;
     return (
-      <div className='Main'>
-        <h1 className='Main__header'>{currentCategory.name}</h1>
+      <div className='main'>
+        <div className='main__title'>
+          <div className='main__title-icon icon'></div>
+          <p className='main__title-text'>{currentCategory.name}</p>
+        </div>
         <TaskContainer
+          category={currentCategory}
           tasks={currentTasks}
           onDeleteTask={this.props.onDeleteTask}
           onToggleCompleteTask={this.props.onToggleCompleteTask}
           onToggleImportantTask={this.props.onToggleImportantTask}
           onUpdateTask={this.props.onUpdateTask}
         />
-        <CompletedTasksContainer completedTasks={completedTasks} />
-
-        <form onSubmit={this.handleCreateTask}>
-          <input
-            type='text'
-            placeholder='add new task'
-            onChange={this.handleInput}
-            value={this.state.createTaskInputValue}
-          />
-          <input type='submit' value='add' />
-        </form>
+        <CompletedTaskContainer
+          tasks={completedTasks}
+          onDeleteTask={this.props.onDeleteTask}
+          onToggleCompleteTask={this.props.onToggleCompleteTask}
+          onToggleImportantTask={this.props.onToggleImportantTask}
+          onUpdateTask={this.props.onUpdateTask}
+        />
+        <div className='main__input input'>
+          <div className='main__icon icon'></div>
+          <form className='main__form' onSubmit={this.handleCreateTask}>
+            <input
+              type='text'
+              className='input__field main__input-field'
+              placeholder='Add a task'
+              value={this.state.createTaskInputValue}
+              onChange={this.handleInput}
+            />
+          </form>
+        </div>
       </div>
     );
   }

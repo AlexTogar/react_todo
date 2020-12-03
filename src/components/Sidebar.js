@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../styles/Sidebar.css';
 
 export default class Sidebar extends Component {
   constructor(props) {
@@ -10,6 +9,7 @@ export default class Sidebar extends Component {
 
     this.handleInput = this.handleInput.bind(this);
     this.handleCreateCategory = this.handleCreateCategory.bind(this);
+    this.handleSelectCategory = this.handleSelectCategory.bind(this);
   }
 
   handleCreateCategory(e) {
@@ -18,51 +18,52 @@ export default class Sidebar extends Component {
     this.setState({ createCategoryInputValue: '' });
   }
 
-  handleInput(event) {
-    this.setState({ createCategoryInputValue: event.target.value });
+  handleSelectCategory(e) {
+    id = e.currentTarget.attributes.catid.value;
+    this.props.onSelectCategory(id);
+  }
+
+  handleInput(e) {
+    this.setState({ createCategoryInputValue: e.target.value });
   }
 
   render() {
-    let categories = this.props.categories;
-    categories = categories.map((cat) => {
+    const categories = this.props.categories.map((cat) => {
       return (
-        <li
-          key={cat.id}
-          style={cat.selected ? { color: 'red' } : { color: 'black' }}
+        <div
+          className={`sidebar__category ${
+            cat.selected ? 'sidebar__category_active' : ''
+          }`}
+          onClick={this.handleSelectCategory}
+          catid={cat.id}
         >
-          <span
-            onClick={() => {
-              this.props.onSelectCategory(cat.id);
-            }}
-          >
-            {cat.name}----{cat.numOfTasks}
-          </span>
-          {cat.deletable ? (
-            <button
-              className={'delete-button id'}
-              onClick={() => {
-                this.props.onDeleteCategory(cat.id);
-              }}
-            >
-              X
-            </button>
-          ) : (
-            <></>
-          )}
-        </li>
+          <div
+            className={`sidebar__cat-icon sidebar__cat-icon_${cat.icon} icon`}
+          ></div>
+          <p className='sidebar__cat-text'>{cat.name}</p>
+          <span className='sidebar__tasks-number'>{cat.numOfTasks}</span>
+        </div>
       );
     });
+
     return (
-      <div className='Sidebar'>
-        <ul>{categories}</ul>
-        <form onSubmit={this.handleCreateCategory}>
-          <input
-            type='text'
-            onChange={this.handleInput}
-            value={this.state.createCategoryInputValue}
-          />
-          <input type='submit' value='add' />
-        </form>
+      <div className='sidebar'>
+        <div className='sidebar__title'>
+          <div className='sidebar__title-text'>Category list</div>
+        </div>
+        <div className='sidebar__categories'>{categories}</div>
+        <div className='sidebar__input input'>
+          <div className='sidebar__icon icon'></div>
+          <form onSubmit={this.handleCreateCategory}>
+            <input
+              type='text'
+              className='input__field'
+              placeholder='New category'
+              onChange={this.handleInput}
+              value={this.state.createCategoryInputValue}
+            />
+          </form>
+        </div>
       </div>
     );
   }

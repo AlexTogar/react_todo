@@ -3,7 +3,6 @@ import Sidebar from './Sidebar';
 import Main from './Main';
 import Tasks from '../Tasks.json';
 import Categories from '../Categoies.json';
-import '../styles/App.css';
 import { v4 as uuidv4 } from 'uuid';
 
 const ALL_TASKS_CAT_ID = '1';
@@ -45,7 +44,7 @@ class Category {
   }
 }
 
-export default class App extends Component {
+export default class Application extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -130,7 +129,7 @@ export default class App extends Component {
     this.setState((state) => {
       return {
         categories: state.categories.concat(
-          new Category(name, '', false, true)
+          new Category(name, 'default', false, true)
         ),
       };
     });
@@ -186,7 +185,7 @@ export default class App extends Component {
     );
 
     return (
-      <div className='App'>
+      <>
         <Sidebar
           categories={this.state.categories}
           onCreateCategory={this.createCategory}
@@ -203,7 +202,7 @@ export default class App extends Component {
           onToggleImportantTask={this.toggleImportantTask}
           onUpdateTask={this.updateTask}
         />
-      </div>
+      </>
     );
   }
 }
