@@ -10,17 +10,27 @@ export default class Sidebar extends Component {
     this.handleInput = this.handleInput.bind(this);
     this.handleCreateCategory = this.handleCreateCategory.bind(this);
     this.handleSelectCategory = this.handleSelectCategory.bind(this);
+    this.handleDeleteCategory = this.handleDeleteCategory.bind(this);
   }
 
   handleCreateCategory(e) {
     e.preventDefault();
-    this.props.onCreateCategory(this.state.createCategoryInputValue);
+    const newCat = this.props.onCreateCategory(
+      this.state.createCategoryInputValue
+    );
     this.setState({ createCategoryInputValue: '' });
+    this.props.onSelectCategory(newCat.id);
   }
 
   handleSelectCategory(e) {
-    id = e.currentTarget.attributes.catid.value;
+    const id = e.currentTarget.attributes.catid.value;
     this.props.onSelectCategory(id);
+  }
+
+  handleDeleteCategory(e) {
+    e.stopPropagation();
+    const id = e.target.parentElement.attributes.catid.value;
+    this.props.onDeleteCategory(id);
   }
 
   handleInput(e) {
@@ -34,6 +44,7 @@ export default class Sidebar extends Component {
           className={`sidebar__category ${
             cat.selected ? 'sidebar__category_active' : ''
           }`}
+          key={cat.id}
           onClick={this.handleSelectCategory}
           catid={cat.id}
         >
@@ -41,7 +52,15 @@ export default class Sidebar extends Component {
             className={`sidebar__cat-icon sidebar__cat-icon_${cat.icon} icon`}
           ></div>
           <p className='sidebar__cat-text'>{cat.name}</p>
-          <span className='sidebar__tasks-number'>{cat.numOfTasks}</span>
+          {cat.deletable ? (
+            <div
+              className='icon application__trash-icon'
+              onClick={this.handleDeleteCategory}
+            ></div>
+          ) : null}
+          <span className='sidebar__tasks-number'>
+            {this.props.tasksNumbers[cat.id]}
+          </span>
         </div>
       );
     });
@@ -57,7 +76,7 @@ export default class Sidebar extends Component {
           <form onSubmit={this.handleCreateCategory}>
             <input
               type='text'
-              className='input__field'
+              className='input-field'
               placeholder='New category'
               onChange={this.handleInput}
               value={this.state.createCategoryInputValue}

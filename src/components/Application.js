@@ -6,6 +6,7 @@ import Categories from '../Categoies.json';
 import { v4 as uuidv4 } from 'uuid';
 
 const ALL_TASKS_CAT_ID = '1';
+const IMPORTANT_CAT_ID = '2';
 const BLUE = '#788CDE';
 
 class Task {
@@ -19,7 +20,7 @@ class Task {
     this.text = text;
     this.categoryId = categoryId;
     this.completed = completed;
-    this.important = important;
+    this.important = this.categoryId === IMPORTANT_CAT_ID ? true : important;
     this.id = id;
   }
 }
@@ -67,12 +68,14 @@ export default class Application extends Component {
    *
    * @param {string} text
    * @param {string} categoryI
-   * @returns {void}
+   * @returns {Task}
    */
   createTask(text, categoryId) {
+    const newTask = new Task(text, categoryId);
     this.setState((state) => {
-      return { tasks: state.tasks.concat(new Task(text, categoryId)) };
+      return { tasks: state.tasks.concat(newTask) };
     });
+    return newTask;
   }
 
   /**
@@ -106,7 +109,6 @@ export default class Application extends Component {
    */
   toggleImportantTask(id) {
     this.setState((state) => {
-      console.log(id, state.tasks);
       const task = state.tasks.find((task) => task.id === id);
       task.important = !task.important;
       return state;
@@ -119,20 +121,31 @@ export default class Application extends Component {
    * @param {string} text
    * @returns {void}
    */
-  updateTask(id, text) {}
+  updateTask(id, text) {
+    console.log(id, text);
+    this.setState((state) => {
+      return {
+        tasks: state.tasks.map((task) => {
+          task.text = task.id === id ? text : task.text;
+          return task;
+        }),
+      };
+    });
+  }
 
   /**
    *
    * @param {string} name
+   * @returns {Category}
    */
   createCategory(name) {
+    const newCat = new Category(name, 'default', false, true);
     this.setState((state) => {
       return {
-        categories: state.categories.concat(
-          new Category(name, 'default', false, true)
-        ),
+        categories: state.categories.concat(newCat),
       };
     });
+    return newCat;
   }
 
   /**
@@ -159,6 +172,7 @@ export default class Application extends Component {
     this.setState((state) => {
       return {
         categories: state.categories.filter((cat) => cat.id !== id),
+        tasks: state.tasks.filter((task) => task.categoryId !== id),
       };
     });
   }
@@ -176,17 +190,40 @@ export default class Application extends Component {
 
   render() {
     const currentCategory = this.state.categories.find((cat) => cat.selected);
-    const currentTasks = this.state.tasks.filter(
-      (task) =>
-        task.categoryId === currentCategory.id && task.completed === false
+    const allTasks = this.state.tasks.filter(
+      (task) => task.completed === false
     );
-    const completedTasks = this.state.tasks.filter(
-      (task) => task.completed === true
-    );
+    const importantTasks = allTasks.filter((task) => task.important);
+    const completedTasks = this.state.tasks.filter((task) => task.completed);
+
+    let currentTasks;
+
+    if (currentCategory.id === IMPORTANT_CAT_ID) {
+      currentTasks = importantTasks;
+    } else if (currentCategory.id === ALL_TASKS_CAT_ID) {
+      currentTasks = allTasks;
+    } else {
+      currentTasks = allTasks.filter(
+        (task) => task.categoryId === currentCategory.id
+      );
+    }
+
+    const tasksNumbers = {
+      [IMPORTANT_CAT_ID]: importantTasks.length,
+      [ALL_TASKS_CAT_ID]: allTasks.length,
+    };
+
+    this.state.categories.forEach((cat) => {
+      if (![ALL_TASKS_CAT_ID, IMPORTANT_CAT_ID].includes(cat.id))
+        tasksNumbers[cat.id] = allTasks.filter(
+          (task) => task.categoryId === cat.id
+        ).length;
+    });
 
     return (
       <>
         <Sidebar
+          tasksNumbers={tasksNumbers}
           categories={this.state.categories}
           onCreateCategory={this.createCategory}
           onDeleteCategory={this.deleteCategory}

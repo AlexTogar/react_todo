@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import TaskContainer from './TaskContainer';
-import CompletedTaskContainer from './CompletedTaskContainer';
 
 export default class Main extends Component {
   constructor(props) {
@@ -20,13 +19,29 @@ export default class Main extends Component {
 
   handleCreateTask(e) {
     e.preventDefault();
-    this.props.onCreateTask(
-      this.state.createTaskInputValue,
-      this.props.currentCategory.id
+    const inputValue = this.state.createTaskInputValue;
+    if (inputValue) {
+      this.props.onCreateTask(inputValue, this.props.currentCategory.id);
+      this.setState({
+        createTaskInputValue: '',
+      });
+    }
+  }
+
+  toggleTaskContainer(e) {
+    const target = e.currentTarget.querySelector(
+      '.completed-task-container__arrow'
     );
-    this.setState({
-      createTaskInputValue: '',
-    });
+    const completedTaskContainer = e.currentTarget.parentElement;
+
+    const taskContainer = e.currentTarget.parentElement.querySelector(
+      '.task-container'
+    );
+
+    completedTaskContainer.classList.toggle('completed-task-container_hidden');
+    taskContainer.classList.toggle('task-container_hidden');
+    target.classList.toggle('completed-task-container__arrow_down');
+    target.classList.toggle('completed-task-container__arrow_right');
   }
 
   render() {
@@ -39,27 +54,44 @@ export default class Main extends Component {
           <div className='main__title-icon icon'></div>
           <p className='main__title-text'>{currentCategory.name}</p>
         </div>
-        <TaskContainer
-          category={currentCategory}
-          tasks={currentTasks}
-          onDeleteTask={this.props.onDeleteTask}
-          onToggleCompleteTask={this.props.onToggleCompleteTask}
-          onToggleImportantTask={this.props.onToggleImportantTask}
-          onUpdateTask={this.props.onUpdateTask}
-        />
-        <CompletedTaskContainer
-          tasks={completedTasks}
-          onDeleteTask={this.props.onDeleteTask}
-          onToggleCompleteTask={this.props.onToggleCompleteTask}
-          onToggleImportantTask={this.props.onToggleImportantTask}
-          onUpdateTask={this.props.onUpdateTask}
-        />
+        <div className='active-task-container'>
+          <TaskContainer
+            category={currentCategory}
+            tasks={currentTasks}
+            onDeleteTask={this.props.onDeleteTask}
+            onToggleCompleteTask={this.props.onToggleCompleteTask}
+            onToggleImportantTask={this.props.onToggleImportantTask}
+            onUpdateTask={this.props.onUpdateTask}
+          />
+        </div>
+
+        <div className='completed-task-container'>
+          <div
+            className='completed-task-container__toggle'
+            onClick={this.toggleTaskContainer}
+          >
+            <div className='completed-task-container__arrow completed-task-container__arrow_down icon'></div>
+            <p className='completed-task-container__text'>
+              Completed
+              <span className='completed-task-container__tasks-number'>
+                {completedTasks.length}
+              </span>
+            </p>
+          </div>
+          <TaskContainer
+            tasks={completedTasks}
+            onDeleteTask={this.props.onDeleteTask}
+            onToggleCompleteTask={this.props.onToggleCompleteTask}
+            onToggleImportantTask={this.props.onToggleImportantTask}
+            onUpdateTask={this.props.onUpdateTask}
+          />
+        </div>
         <div className='main__input input'>
           <div className='main__icon icon'></div>
           <form className='main__form' onSubmit={this.handleCreateTask}>
             <input
               type='text'
-              className='input__field main__input-field'
+              className='input-field main__input-field'
               placeholder='Add a task'
               value={this.state.createTaskInputValue}
               onChange={this.handleInput}

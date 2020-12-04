@@ -1,15 +1,15 @@
 [
   {
     "id": "1",
-    "text": "first todo",
+    "text": "first task",
     "important": false,
     "completed": false,
     "categoryId": "1"
   },
   {
     "id": "2",
-    "text": "second todo",
-    "important": false,
+    "text": "second task (important)",
+    "important": true,
     "completed": false,
     "categoryId": "1"
   },
