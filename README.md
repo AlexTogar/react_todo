@@ -1,6 +1,6 @@
 # react_todo
 ### This app is my personal project created with Reactjs (using styles naming according to BEM metodology).
-The app's design follows microsoft todo list app (but with less functionality).  
+The app's design follows microsoft todo list app (but with less functionality and not adaptive to mobile devices).  
 Application is available here: https://alextogar.github.io/react_todo/
 ### Functionality:
 - Create/delete/select a category
