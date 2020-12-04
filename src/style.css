@@ -98,7 +98,7 @@ input {
   background-image: url('./img/star_cat_icon.svg');
 }
 .sidebar__cat-icon_all-tasks {
-  background-image: url('./img/sun.svg');
+  background-image: url('./img/home.svg');
 }
 .sidebar__cat-icon_default {
   background-image: url('./img/icon_cat_default.svg');
@@ -159,7 +159,6 @@ input {
   align-items: center;
 }
 .main__title-icon {
-  background-image: url('./img/home.svg');
   width: 25px;
   height: 25px;
 }

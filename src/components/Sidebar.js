@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+/* 
+Contains categories list
+input field for creating new category
+*/
 export default class Sidebar extends Component {
   constructor(props) {
     super(props);

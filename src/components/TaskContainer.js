@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+/* 
+Contains given tasks
+*/
 export default class TaskContainer extends Component {
   constructor(props) {
     super(props);
@@ -7,14 +10,12 @@ export default class TaskContainer extends Component {
     this.handleDeleteTask = this.handleDeleteTask.bind(this);
     this.handleToggleCompleteTask = this.handleToggleCompleteTask.bind(this);
     this.handleToggleImportantTask = this.handleToggleImportantTask.bind(this);
-    this.handleUpdateTask = this.handleUpdateTask.bind(this);
     this.enableTaskInput = this.enableTaskInput.bind(this);
     this.disableTaskInput = this.disableTaskInput.bind(this);
     this.handleInput = this.handleInput.bind(this);
   }
 
   handleDeleteTask(e) {
-    console.log('click');
     const id = e.target.parentElement.attributes.taskid.value;
     this.props.onDeleteTask(id);
   }
@@ -32,8 +33,6 @@ export default class TaskContainer extends Component {
     const id = e.target.parentElement.attributes.taskid.value;
     this.props.onToggleImportantTask(id);
   }
-
-  handleUpdateTask(e) {}
 
   enableTaskInput(e) {
     e.target.disabled = false;

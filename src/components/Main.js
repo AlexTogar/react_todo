@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import TaskContainer from './TaskContainer';
 
+/* 
+Contains active tasks list, completed tasks,
+input field for creating new tasks
+*/
 export default class Main extends Component {
   constructor(props) {
     super(props);
@@ -51,7 +55,9 @@ export default class Main extends Component {
     return (
       <div className='main'>
         <div className='main__title'>
-          <div className='main__title-icon icon'></div>
+          <div
+            className={`main__title-icon sidebar__cat-icon_${currentCategory.icon} icon `}
+          ></div>
           <p className='main__title-text'>{currentCategory.name}</p>
         </div>
         <div className='active-task-container'>

@@ -1,49 +1,16 @@
 import React, { Component } from 'react';
 import Sidebar from './Sidebar';
 import Main from './Main';
+import Task from '../helper/TaskClass';
+import Category from '../helper/CategoryClass';
+import constants from '../helper/constants';
+
+//init tasks
 import Tasks from '../Tasks.json';
+//initial categories
 import Categories from '../Categoies.json';
-import { v4 as uuidv4 } from 'uuid';
 
-const ALL_TASKS_CAT_ID = '1';
-const IMPORTANT_CAT_ID = '2';
-const BLUE = '#788CDE';
-
-class Task {
-  constructor(
-    text = '',
-    categoryId,
-    completed = false,
-    important = false,
-    id = uuidv4()
-  ) {
-    this.text = text;
-    this.categoryId = categoryId;
-    this.completed = completed;
-    this.important = this.categoryId === IMPORTANT_CAT_ID ? true : important;
-    this.id = id;
-  }
-}
-
-class Category {
-  constructor(
-    name,
-    icon = '',
-    selected = false,
-    deletable = false,
-    textColor = BLUE,
-    numOfTasks = 0,
-    id = uuidv4()
-  ) {
-    this.name = name;
-    this.icon = icon;
-    this.selected = selected;
-    this.deletable = deletable;
-    this.textColor = textColor;
-    this.numOfTasks = numOfTasks;
-    this.id = id;
-  }
-}
+const { ALL_TASKS_CAT_ID, IMPORTANT_CAT_ID } = constants;
 
 export default class Application extends Component {
   constructor(props) {
@@ -122,7 +89,6 @@ export default class Application extends Component {
    * @returns {void}
    */
   updateTask(id, text) {
-    console.log(id, text);
     this.setState((state) => {
       return {
         tasks: state.tasks.map((task) => {
@@ -208,11 +174,12 @@ export default class Application extends Component {
       );
     }
 
-    const tasksNumbers = {
+    //create map categoryId => number of tasks in category
+    let tasksNumbers = Object.create(null);
+    tasksNumbers = {
       [IMPORTANT_CAT_ID]: importantTasks.length,
       [ALL_TASKS_CAT_ID]: allTasks.length,
     };
-
     this.state.categories.forEach((cat) => {
       if (![ALL_TASKS_CAT_ID, IMPORTANT_CAT_ID].includes(cat.id))
         tasksNumbers[cat.id] = allTasks.filter(
