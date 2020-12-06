@@ -30,6 +30,7 @@ export default class Application extends Component {
     this.createCategory = this.createCategory.bind(this);
     this.deleteCategory = this.deleteCategory.bind(this);
     this.selectCategory = this.selectCategory.bind(this);
+    this.sidebarToggle = this.sidebarToggle.bind(this);
   }
   /**
    *
@@ -154,6 +155,13 @@ export default class Application extends Component {
     });
   }
 
+  sidebarToggle() {
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarIcon = document.querySelector('.main__sidebar-icon');
+    sidebar.classList.toggle('sidebar_shown');
+    sidebarIcon.classList.toggle('main__sidebar-icon_closing');
+  }
+
   render() {
     const currentCategory = this.state.categories.find((cat) => cat.selected);
     const allTasks = this.state.tasks.filter(
@@ -195,6 +203,7 @@ export default class Application extends Component {
           onCreateCategory={this.createCategory}
           onDeleteCategory={this.deleteCategory}
           onSelectCategory={this.selectCategory}
+          onSidebarToggle={this.sidebarToggle}
         />
         <Main
           currentCategory={currentCategory}
@@ -205,6 +214,7 @@ export default class Application extends Component {
           onToggleCompleteTask={this.toggleCompleteTask}
           onToggleImportantTask={this.toggleImportantTask}
           onUpdateTask={this.updateTask}
+          onSidebarToggle={this.sidebarToggle}
         />
       </>
     );

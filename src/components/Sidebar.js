@@ -29,6 +29,7 @@ export default class Sidebar extends Component {
   handleSelectCategory(e) {
     const id = e.currentTarget.attributes.catid.value;
     this.props.onSelectCategory(id);
+    this.props.onSidebarToggle();
   }
 
   handleDeleteCategory(e) {

@@ -13,6 +13,7 @@ export default class Main extends Component {
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleCreateTask = this.handleCreateTask.bind(this);
+    this.handeSidebarToggle = this.handeSidebarToggle.bind(this);
   }
 
   handleInput(e) {
@@ -48,12 +49,20 @@ export default class Main extends Component {
     target.classList.toggle('completed-task-container__arrow_right');
   }
 
+  handeSidebarToggle(e) {
+    this.props.onSidebarToggle();
+  }
+
   render() {
     const currentCategory = this.props.currentCategory;
     const currentTasks = this.props.currentTasks;
     const completedTasks = this.props.completedTasks;
     return (
       <div className='main'>
+        <div
+          className='main__sidebar-icon icon'
+          onClick={this.handeSidebarToggle}
+        ></div>
         <div className='main__title'>
           <div
             className={`main__title-icon sidebar__cat-icon_${currentCategory.icon} icon `}
