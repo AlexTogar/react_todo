@@ -34,7 +34,7 @@ export default class Main extends Component {
   }
 
   toggleTaskContainer(e) {
-    const target = e.currentTarget.querySelector(
+    const toggleContainerButton = e.currentTarget.querySelector(
       '.completed-task-container__arrow'
     );
     const completedTaskContainer = e.currentTarget.parentElement;
@@ -45,8 +45,12 @@ export default class Main extends Component {
 
     completedTaskContainer.classList.toggle('completed-task-container_hidden');
     taskContainer.classList.toggle('task-container_hidden');
-    target.classList.toggle('completed-task-container__arrow_down');
-    target.classList.toggle('completed-task-container__arrow_right');
+    toggleContainerButton.classList.toggle(
+      'completed-task-container__arrow_down'
+    );
+    toggleContainerButton.classList.toggle(
+      'completed-task-container__arrow_right'
+    );
   }
 
   handeSidebarToggle(e) {
