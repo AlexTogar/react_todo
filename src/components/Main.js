@@ -11,9 +11,14 @@ export default class Main extends Component {
     this.state = {
       createTaskInputValue: '',
     };
+    this.toggleContainerButtonRef = React.createRef();
+    this.taskContainerRef = React.createRef();
+    this.completedTaskContainerRef = React.createRef();
+
     this.handleInput = this.handleInput.bind(this);
     this.handleCreateTask = this.handleCreateTask.bind(this);
     this.handeSidebarToggle = this.handeSidebarToggle.bind(this);
+    this.toggleTaskContainer = this.toggleTaskContainer.bind(this);
   }
 
   handleInput(e) {
@@ -34,14 +39,9 @@ export default class Main extends Component {
   }
 
   toggleTaskContainer(e) {
-    const toggleContainerButton = e.currentTarget.querySelector(
-      '.completed-task-container__arrow'
-    );
-    const completedTaskContainer = e.currentTarget.parentElement;
-
-    const taskContainer = e.currentTarget.parentElement.querySelector(
-      '.task-container'
-    );
+    const completedTaskContainer = this.completedTaskContainerRef.current;
+    const taskContainer = this.taskContainerRef.current;
+    const toggleContainerButton = this.toggleContainerButtonRef.current;
 
     completedTaskContainer.classList.toggle('completed-task-container_hidden');
     taskContainer.classList.toggle('task-container_hidden');
@@ -66,6 +66,7 @@ export default class Main extends Component {
         <div
           className='main__sidebar-icon icon'
           onClick={this.handeSidebarToggle}
+          ref={this.props.forwardedSidebarIconRef}
         ></div>
         <div className='main__title'>
           <div
@@ -84,12 +85,18 @@ export default class Main extends Component {
           />
         </div>
 
-        <div className='completed-task-container'>
+        <div
+          className='completed-task-container'
+          ref={this.completedTaskContainerRef}
+        >
           <div
             className='completed-task-container__toggle'
             onClick={this.toggleTaskContainer}
           >
-            <div className='completed-task-container__arrow completed-task-container__arrow_down icon'></div>
+            <div
+              className='completed-task-container__arrow completed-task-container__arrow_down icon'
+              ref={this.toggleContainerButtonRef}
+            ></div>
             <p className='completed-task-container__text'>
               Completed
               <span className='completed-task-container__tasks-number'>
@@ -98,11 +105,13 @@ export default class Main extends Component {
             </p>
           </div>
           <TaskContainer
+            forwardedRef={this.taskContainerRef}
             tasks={completedTasks}
             onDeleteTask={this.props.onDeleteTask}
             onToggleCompleteTask={this.props.onToggleCompleteTask}
             onToggleImportantTask={this.props.onToggleImportantTask}
             onUpdateTask={this.props.onUpdateTask}
+            forwardedRef={this.taskContainerRef}
           />
         </div>
         <div className='main__input input'>

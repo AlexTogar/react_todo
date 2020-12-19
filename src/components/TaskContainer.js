@@ -6,7 +6,6 @@ Contains given tasks
 export default class TaskContainer extends Component {
   constructor(props) {
     super(props);
-
     this.handleDeleteTask = this.handleDeleteTask.bind(this);
     this.handleToggleCompleteTask = this.handleToggleCompleteTask.bind(this);
     this.handleToggleImportantTask = this.handleToggleImportantTask.bind(this);
@@ -97,6 +96,10 @@ export default class TaskContainer extends Component {
       );
     });
 
-    return <div className='task-container'>{tasks}</div>;
+    return (
+      <div className='task-container' ref={this.props.forwardedRef}>
+        {tasks}
+      </div>
+    );
   }
 }

@@ -21,6 +21,8 @@ export default class Application extends Component {
       /**@type {Category[]} */
       categories: Categories,
     };
+    this.sidebarRef = React.createRef();
+    this.sidebarIconRef = React.createRef();
 
     this.createTask = this.createTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
@@ -156,8 +158,8 @@ export default class Application extends Component {
   }
 
   sidebarToggle() {
-    const sidebar = document.querySelector('.sidebar');
-    const sidebarIcon = document.querySelector('.main__sidebar-icon');
+    const sidebar = this.sidebarRef.current;
+    const sidebarIcon = this.sidebarIconRef.current;
     sidebar.classList.toggle('sidebar_shown');
     sidebarIcon.classList.toggle('main__sidebar-icon_closing');
   }
@@ -204,6 +206,7 @@ export default class Application extends Component {
           onDeleteCategory={this.deleteCategory}
           onSelectCategory={this.selectCategory}
           onSidebarToggle={this.sidebarToggle}
+          forwardedSidebarRef={this.sidebarRef}
         />
         <Main
           currentCategory={currentCategory}
@@ -215,6 +218,7 @@ export default class Application extends Component {
           onToggleImportantTask={this.toggleImportantTask}
           onUpdateTask={this.updateTask}
           onSidebarToggle={this.sidebarToggle}
+          forwardedSidebarIconRef={this.sidebarIconRef}
         />
       </>
     );

@@ -71,7 +71,7 @@ export default class Sidebar extends Component {
     });
 
     return (
-      <div className='sidebar'>
+      <div className='sidebar' ref={this.props.forwardedSidebarRef}>
         <div className='sidebar__title'>
           <div className='sidebar__title-text'>Category list</div>
         </div>
