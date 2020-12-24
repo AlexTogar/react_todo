@@ -4,6 +4,8 @@ import Main from './Main';
 import Task from '../helper/TaskClass';
 import Category from '../helper/CategoryClass';
 import constants from '../helper/constants';
+import Style from './Style';
+import MediaStyle from './MediaStyle';
 
 //init tasks
 import Tasks from '../Tasks.json';
@@ -199,6 +201,8 @@ export default class Application extends Component {
 
     return (
       <>
+        <Style />
+        <MediaStyle />
         <Sidebar
           tasksNumbers={tasksNumbers}
           categories={this.state.categories}
