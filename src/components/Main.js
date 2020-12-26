@@ -73,6 +73,10 @@ export default class Main extends Component {
             className={`main__title-icon sidebar__cat-icon_${currentCategory.icon} icon `}
           ></div>
           <p className='main__title-text'>{currentCategory.name}</p>
+          <div
+            className='main__theme-switcher'
+            onClick={this.props.onToggleTheme}
+          ></div>
         </div>
         <div className='active-task-container'>
           <TaskContainer

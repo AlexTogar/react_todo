@@ -12,8 +12,21 @@ import starHovered from '../img/star_hovered.svg';
 import starActive from '../img/star_acitve.svg';
 import arrowDown from '../img/arrow_down.svg';
 import arrowRight from '../img/arrow_right.svg';
+import themes from '../colorThemes.json';
 
 export default function Style(props) {
+  const {
+    globalBackgroundColor,
+    mainBackgroundColor,
+    sidebarBackgroundColor,
+    backgroundActiveCatColor,
+    backgroundHoveredItemColor,
+    defaultGrayColor,
+    accentColor,
+    splitterLineColor,
+    textColor,
+  } = themes[props.theme];
+
   return (
     <style>
       {`
@@ -23,15 +36,15 @@ export default function Style(props) {
           padding: 0px;
         }
         :root {
-          --global-background-color: #2d2f30;
-          --main-background-color: #1a1b1c;
-          --sidebar-backgroukd-color: #212222;
-          --background-active-cat-color: #2e2e36;
-          --background-hovered-item-color: #292929;
-          --default-gray-color: #939393;
-          --accent-color: #788cde;
-          --splitter-line-color: #101011;
-          --text-color: #e1e1e1;
+          --global-background-color: ${globalBackgroundColor};
+          --main-background-color: ${mainBackgroundColor};
+          --sidebar-backgroukd-color: ${sidebarBackgroundColor};
+          --background-active-cat-color: ${backgroundActiveCatColor};
+          --background-hovered-item-color: ${backgroundHoveredItemColor};
+          --default-gray-color: ${defaultGrayColor};
+          --accent-color: ${accentColor};
+          --splitter-line-color: ${splitterLineColor};
+          --text-color: ${textColor};
         }
         html,
         body {
@@ -199,6 +212,15 @@ export default function Style(props) {
           font-weight: 500;
           margin-left: 10px;
           color: var(--accent-color);
+        }
+        .main__theme-switcher{
+          height: 20px;
+          width: 20px;
+          border-radius: 100%;
+          background-color: var(--text-color);
+          margin-left: auto;
+          border: none;
+          cursor: pointer;
         }
         .active-task-container {
           max-height: 77%;

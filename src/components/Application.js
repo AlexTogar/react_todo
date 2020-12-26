@@ -22,6 +22,7 @@ export default class Application extends Component {
       tasks: Tasks,
       /**@type {Category[]} */
       categories: Categories,
+      theme: 'dark',
     };
     this.sidebarRef = React.createRef();
     this.sidebarIconRef = React.createRef();
@@ -35,6 +36,8 @@ export default class Application extends Component {
     this.deleteCategory = this.deleteCategory.bind(this);
     this.selectCategory = this.selectCategory.bind(this);
     this.sidebarToggle = this.sidebarToggle.bind(this);
+
+    this.toggleTheme = this.toggleTheme.bind(this);
   }
   /**
    *
@@ -166,6 +169,12 @@ export default class Application extends Component {
     sidebarIcon.classList.toggle('main__sidebar-icon_closing');
   }
 
+  toggleTheme() {
+    this.setState((state) => {
+      return { theme: state.theme === 'dark' ? 'light' : 'dark' };
+    });
+  }
+
   render() {
     const currentCategory = this.state.categories.find((cat) => cat.selected);
     const allTasks = this.state.tasks.filter(
@@ -201,7 +210,7 @@ export default class Application extends Component {
 
     return (
       <>
-        <Style />
+        <Style theme={this.state.theme} />
         <MediaStyle />
         <Sidebar
           tasksNumbers={tasksNumbers}
@@ -223,6 +232,7 @@ export default class Application extends Component {
           onUpdateTask={this.updateTask}
           onSidebarToggle={this.sidebarToggle}
           forwardedSidebarIconRef={this.sidebarIconRef}
+          onToggleTheme={this.toggleTheme}
         />
       </>
     );

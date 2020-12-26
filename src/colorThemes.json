@@ -1,5 +1,5 @@
 {
-  "black": {
+  "dark": {
     "globalBackgroundColor": "#2d2f30",
     "mainBackgroundColor": "#1a1b1c",
     "sidebarBackgroundColor": "#212222",
@@ -11,14 +11,14 @@
     "textColor": "#e1e1e1"
   },
   "light": {
-    "globalBackgroundColor": "#2d2f30",
-    "mainBackgroundColor": "#1a1b1c",
-    "sidebarBackgroundColor": "#212222",
-    "backgroundActiveCatColor": "#2e2e36",
-    "backgroundHoveredItemColor": "#292929",
-    "defaultGrayColor": "#939393",
-    "accentColor": "#788cde",
-    "splitterLineColor": "#101011",
-    "textColor": "#e1e1e1"
+    "globalBackgroundColor": "#E5E5E5",
+    "mainBackgroundColor": "#FFFFFF",
+    "sidebarBackgroundColor": "#F4F4F4",
+    "backgroundActiveCatColor": "#EDEDED",
+    "backgroundHoveredItemColor": "#EDEDED",
+    "defaultGrayColor": "#767678",
+    "accentColor": "#3E69DF",
+    "splitterLineColor": "#EAEAEA",
+    "textColor": "#34373D"
   }
 }
