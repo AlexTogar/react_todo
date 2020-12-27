@@ -22,7 +22,7 @@ export default class Application extends Component {
       tasks: Tasks,
       /**@type {Category[]} */
       categories: Categories,
-      theme: 'dark',
+      theme: localStorage.getItem('theme') || 'dark',
     };
     this.sidebarRef = React.createRef();
     this.sidebarIconRef = React.createRef();
@@ -170,8 +170,11 @@ export default class Application extends Component {
   }
 
   toggleTheme() {
+    let currentTheme;
     this.setState((state) => {
-      return { theme: state.theme === 'dark' ? 'light' : 'dark' };
+      currentTheme = state.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', currentTheme);
+      return { theme: currentTheme };
     });
   }
 
