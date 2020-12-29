@@ -1,47 +1,32 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import TaskContainer from './TaskContainer';
 
 /* 
 Contains active tasks list, completed tasks,
 input field for creating new tasks
 */
-export default class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      createTaskInputValue: '',
-    };
-    this.toggleContainerButtonRef = React.createRef();
-    this.taskContainerRef = React.createRef();
-    this.completedTaskContainerRef = React.createRef();
+export default function Main(props) {
+  const [input, setInput] = useState('');
+  const toggleContainerButtonRef = React.createRef();
+  const taskContainerRef = React.createRef();
+  const completedTaskContainerRef = React.createRef();
 
-    this.handleInput = this.handleInput.bind(this);
-    this.handleCreateTask = this.handleCreateTask.bind(this);
-    this.handeSidebarToggle = this.handeSidebarToggle.bind(this);
-    this.toggleTaskContainer = this.toggleTaskContainer.bind(this);
+  function handleInput(e) {
+    setInput(e.target.value);
   }
 
-  handleInput(e) {
-    this.setState(() => {
-      return { createTaskInputValue: e.target.value };
-    });
-  }
-
-  handleCreateTask(e) {
+  function handleCreateTask(e) {
     e.preventDefault();
-    const inputValue = this.state.createTaskInputValue;
     if (inputValue) {
-      this.props.onCreateTask(inputValue, this.props.currentCategory.id);
-      this.setState({
-        createTaskInputValue: '',
-      });
+      props.onCreateTask(input, props.currentCategory.id);
+      setInput('');
     }
   }
 
-  toggleTaskContainer(e) {
-    const completedTaskContainer = this.completedTaskContainerRef.current;
-    const taskContainer = this.taskContainerRef.current;
-    const toggleContainerButton = this.toggleContainerButtonRef.current;
+  function toggleTaskContainer() {
+    const completedTaskContainer = completedTaskContainerRef.current;
+    const taskContainer = taskContainerRef.current;
+    const toggleContainerButton = toggleContainerButtonRef.current;
 
     completedTaskContainer.classList.toggle('completed-task-container_hidden');
     taskContainer.classList.toggle('task-container_hidden');
@@ -53,84 +38,80 @@ export default class Main extends Component {
     );
   }
 
-  handeSidebarToggle(e) {
-    this.props.onSidebarToggle();
+  function handeSidebarToggle() {
+    props.onSidebarToggle();
   }
 
-  render() {
-    const currentCategory = this.props.currentCategory;
-    const currentTasks = this.props.currentTasks;
-    const completedTasks = this.props.completedTasks;
-    return (
-      <div className='main'>
-        <div
-          className='main__sidebar-icon icon'
-          onClick={this.handeSidebarToggle}
-          ref={this.props.forwardedSidebarIconRef}
-        ></div>
-        <div className='main__title'>
-          <div
-            className={`main__title-icon sidebar__cat-icon_${currentCategory.icon} icon `}
-          ></div>
-          <p className='main__title-text'>{currentCategory.name}</p>
-          <div
-            className='main__theme-switcher'
-            onClick={this.props.onToggleTheme}
-          ></div>
-        </div>
-        <div className='active-task-container'>
-          <TaskContainer
-            category={currentCategory}
-            tasks={currentTasks}
-            onDeleteTask={this.props.onDeleteTask}
-            onToggleCompleteTask={this.props.onToggleCompleteTask}
-            onToggleImportantTask={this.props.onToggleImportantTask}
-            onUpdateTask={this.props.onUpdateTask}
-          />
-        </div>
+  const currentCategory = props.currentCategory;
+  const currentTasks = props.currentTasks;
+  const completedTasks = props.completedTasks;
 
+  return (
+    <div className='main'>
+      <div
+        className='main__sidebar-icon icon'
+        onClick={handeSidebarToggle}
+        ref={props.forwardedSidebarIconRef}
+      ></div>
+      <div className='main__title'>
         <div
-          className='completed-task-container'
-          ref={this.completedTaskContainerRef}
+          className={`main__title-icon sidebar__cat-icon_${currentCategory.icon} icon `}
+        ></div>
+        <p className='main__title-text'>{currentCategory.name}</p>
+        <div
+          className='main__theme-switcher'
+          onClick={props.onToggleTheme}
+        ></div>
+      </div>
+      <div className='active-task-container'>
+        <TaskContainer
+          category={currentCategory}
+          tasks={currentTasks}
+          onDeleteTask={props.onDeleteTask}
+          onToggleCompleteTask={props.onToggleCompleteTask}
+          onToggleImportantTask={props.onToggleImportantTask}
+          onUpdateTask={props.onUpdateTask}
+        />
+      </div>
+
+      <div className='completed-task-container' ref={completedTaskContainerRef}>
+        <div
+          className='completed-task-container__toggle'
+          onClick={toggleTaskContainer}
         >
           <div
-            className='completed-task-container__toggle'
-            onClick={this.toggleTaskContainer}
-          >
-            <div
-              className='completed-task-container__arrow completed-task-container__arrow_down icon'
-              ref={this.toggleContainerButtonRef}
-            ></div>
-            <p className='completed-task-container__text'>
-              Completed
-              <span className='completed-task-container__tasks-number'>
-                {completedTasks.length}
-              </span>
-            </p>
-          </div>
-          <TaskContainer
-            forwardedRef={this.taskContainerRef}
-            tasks={completedTasks}
-            onDeleteTask={this.props.onDeleteTask}
-            onToggleCompleteTask={this.props.onToggleCompleteTask}
-            onToggleImportantTask={this.props.onToggleImportantTask}
-            onUpdateTask={this.props.onUpdateTask}
-            forwardedRef={this.taskContainerRef}
-          />
+            className='completed-task-container__arrow completed-task-container__arrow_down icon'
+            ref={toggleContainerButtonRef}
+          ></div>
+          <p className='completed-task-container__text'>
+            Completed
+            <span className='completed-task-container__tasks-number'>
+              {completedTasks.length}
+            </span>
+          </p>
         </div>
-        <div className='main__input input'>
-          <div className='main__icon icon'></div>
-          <form className='main__form' onSubmit={this.handleCreateTask}>
-            <input
-              type='text'
-              className='input-field main__input-field'
-              placeholder='Add a task'
-              value={this.state.createTaskInputValue}
-              onChange={this.handleInput}
-            />
-          </form>
-        </div>
+        <TaskContainer
+          forwardedRef={taskContainerRef}
+          tasks={completedTasks}
+          onDeleteTask={props.onDeleteTask}
+          onToggleCompleteTask={props.onToggleCompleteTask}
+          onToggleImportantTask={props.onToggleImportantTask}
+          onUpdateTask={props.onUpdateTask}
+          forwardedRef={taskContainerRef}
+        />
       </div>
-    );
-  }
+      <div className='main__input input'>
+        <div className='main__icon icon'></div>
+        <form className='main__form' onSubmit={handleCreateTask}>
+          <input
+            type='text'
+            className='input-field main__input-field'
+            placeholder='Add a task'
+            value={input}
+            onChange={handleInput}
+          />
+        </form>
+      </div>
+    </div>
+  );
 }
