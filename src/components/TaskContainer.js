@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
+import taskActions from '../actions/taskActions';
+const {
+  deleteTask,
+  toggleCompleteTask,
+  toggleImportantTask,
+  updateTask,
+} = taskActions;
 /* 
 Contains given tasks
 */
 export default function TaskContainer(props) {
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state);
+
   function handleDeleteTask(e) {
     const id = e.target.parentElement.attributes.taskid.value;
-    props.onDeleteTask(id);
+    dispatch(deleteTask(id));
   }
 
   function handleToggleCompleteTask(e) {
@@ -14,13 +24,13 @@ export default function TaskContainer(props) {
     taskElement.classList.toggle('task-container__task_checked');
     setTimeout(() => {
       const id = taskElement.attributes.taskid.value;
-      props.onToggleCompleteTask(id);
+      dispatch(toggleCompleteTask(id));
     }, 150);
   }
 
   function handleToggleImportantTask(e) {
     const id = e.target.parentElement.attributes.taskid.value;
-    props.onToggleImportantTask(id);
+    dispatch(toggleImportantTask(id));
   }
 
   function enableTaskInput(e) {
@@ -34,11 +44,11 @@ export default function TaskContainer(props) {
   function handleInput(e) {
     const id = e.currentTarget.attributes.taskid.value;
     const text = e.target.value;
-    props.onUpdateTask(id, text);
+    dispatch(updateTask(id, text));
   }
 
   const category = props.category;
-  const tasks = props.tasks.map((task) => {
+  const taskElements = props.tasks.map((task) => {
     return (
       <div
         className={`task-container__task ${
@@ -87,7 +97,7 @@ export default function TaskContainer(props) {
 
   return (
     <div className='task-container' ref={props.forwardedRef}>
-      {tasks}
+      {taskElements}
     </div>
   );
 }

@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import TaskContainer from './TaskContainer';
-
+import { useDispatch } from 'react-redux';
+import taskActions from '../actions/taskActions';
+const { createTask } = taskActions;
 /* 
 Contains active tasks list, completed tasks,
 input field for creating new tasks
 */
 export default function Main(props) {
   const [input, setInput] = useState('');
+  const dispatch = useDispatch();
+
   const toggleContainerButtonRef = React.createRef();
   const taskContainerRef = React.createRef();
   const completedTaskContainerRef = React.createRef();
@@ -17,8 +21,8 @@ export default function Main(props) {
 
   function handleCreateTask(e) {
     e.preventDefault();
-    if (inputValue) {
-      props.onCreateTask(input, props.currentCategory.id);
+    if (input) {
+      dispatch(createTask(input, props.currentCategory.id));
       setInput('');
     }
   }
@@ -64,14 +68,7 @@ export default function Main(props) {
         ></div>
       </div>
       <div className='active-task-container'>
-        <TaskContainer
-          category={currentCategory}
-          tasks={currentTasks}
-          onDeleteTask={props.onDeleteTask}
-          onToggleCompleteTask={props.onToggleCompleteTask}
-          onToggleImportantTask={props.onToggleImportantTask}
-          onUpdateTask={props.onUpdateTask}
-        />
+        <TaskContainer category={currentCategory} tasks={currentTasks} />
       </div>
 
       <div className='completed-task-container' ref={completedTaskContainerRef}>
@@ -90,15 +87,7 @@ export default function Main(props) {
             </span>
           </p>
         </div>
-        <TaskContainer
-          forwardedRef={taskContainerRef}
-          tasks={completedTasks}
-          onDeleteTask={props.onDeleteTask}
-          onToggleCompleteTask={props.onToggleCompleteTask}
-          onToggleImportantTask={props.onToggleImportantTask}
-          onUpdateTask={props.onUpdateTask}
-          forwardedRef={taskContainerRef}
-        />
+        <TaskContainer forwardedRef={taskContainerRef} tasks={completedTasks} />
       </div>
       <div className='main__input input'>
         <div className='main__icon icon'></div>
