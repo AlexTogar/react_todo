@@ -1,36 +1,59 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import constants from '../helper/constants';
+import categoryActions from '../actions/categoryActions';
+import taskActions from '../actions/taskActions';
+const { ALL_TASKS_CAT_ID, IMPORTANT_CAT_ID } = constants;
+const { createCategory, deleteCategory, selectCategory } = categoryActions;
+const { deleteTask } = taskActions;
 
-/* 
-Contains categories list
-input field for creating new category
-*/
 export default function Sidebar(props) {
   const [input, setInput] = useState('');
+  const categories = useSelector((state) => state.categories);
+  const tasks = useSelector((state) => state.tasks);
+  const dispatch = useDispatch();
 
   function handleCreateCategory(e) {
     e.preventDefault();
-    const newCat = props.onCreateCategory(state.createCategoryInputValue);
+    dispatch(createCategory(input));
     setInput('');
-    props.onSelectCategory(newCat.id);
   }
 
   function handleSelectCategory(e) {
     const id = e.currentTarget.attributes.catid.value;
-    props.onSelectCategory(id);
+    dispatch(selectCategory(id));
+    //hide sidebar after category selection on mobile version
     props.onSidebarToggle();
   }
 
   function handleDeleteCategory(e) {
     e.stopPropagation();
     const id = e.target.parentElement.attributes.catid.value;
-    props.onDeleteCategory(id);
+    dispatch(deleteCategory(id));
+    tasks.forEach((task) => {
+      if (task.categoryId === id) dispatch(deleteTask(task.id));
+    });
   }
 
   function handleInput(e) {
     setInput(e.target.value);
   }
 
-  const categories = props.categories.map((cat) => {
+  //create map [categoryId => numOfTasks] for each category
+  const importantTasks = tasks.filter((task) => task.important);
+  let tasksNumbers = Object.create(null);
+  tasksNumbers = {
+    [IMPORTANT_CAT_ID]: importantTasks.length,
+    [ALL_TASKS_CAT_ID]: tasks.length,
+  };
+  categories.forEach((cat) => {
+    if (![ALL_TASKS_CAT_ID, IMPORTANT_CAT_ID].includes(cat.id))
+      tasksNumbers[cat.id] = tasks.filter(
+        (task) => task.categoryId === cat.id
+      ).length;
+  });
+
+  const categoryElements = categories.map((cat) => {
     return (
       <div
         className={`sidebar__category ${
@@ -50,9 +73,7 @@ export default function Sidebar(props) {
             onClick={handleDeleteCategory}
           ></div>
         ) : null}
-        <span className='sidebar__tasks-number'>
-          {props.tasksNumbers[cat.id]}
-        </span>
+        <span className='sidebar__tasks-number'>{tasksNumbers[cat.id]}</span>
       </div>
     );
   });
@@ -62,7 +83,7 @@ export default function Sidebar(props) {
       <div className='sidebar__title'>
         <div className='sidebar__title-text'>Category list</div>
       </div>
-      <div className='sidebar__categories'>{categories}</div>
+      <div className='sidebar__categories'>{categoryElements}</div>
       <div className='sidebar__input input'>
         <div className='sidebar__icon icon'></div>
         <form onSubmit={handleCreateCategory}>

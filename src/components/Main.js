@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import TaskContainer from './TaskContainer';
-import { useDispatch } from 'react-redux';
 import taskActions from '../actions/taskActions';
+import constants from '../helper/constants';
 const { createTask } = taskActions;
+const { ALL_TASKS_CAT_ID, IMPORTANT_CAT_ID } = constants;
 /* 
 Contains active tasks list, completed tasks,
 input field for creating new tasks
@@ -10,10 +12,29 @@ input field for creating new tasks
 export default function Main(props) {
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
+  const categories = useSelector((state) => state.categories);
+  const tasks = useSelector((state) => state.tasks);
 
   const toggleContainerButtonRef = React.createRef();
   const taskContainerRef = React.createRef();
   const completedTaskContainerRef = React.createRef();
+
+  const currentCategory = categories.find((cat) => cat.selected);
+  const activeTasks = tasks.filter((task) => task.completed === false);
+  const importantTasks = activeTasks.filter((task) => task.important);
+  const completedTasks = tasks.filter((task) => task.completed);
+
+  let currentTasks;
+
+  if (currentCategory.id === IMPORTANT_CAT_ID) {
+    currentTasks = importantTasks;
+  } else if (currentCategory.id === ALL_TASKS_CAT_ID) {
+    currentTasks = activeTasks;
+  } else {
+    currentTasks = activeTasks.filter(
+      (task) => task.categoryId === currentCategory.id
+    );
+  }
 
   function handleInput(e) {
     setInput(e.target.value);
@@ -22,7 +43,7 @@ export default function Main(props) {
   function handleCreateTask(e) {
     e.preventDefault();
     if (input) {
-      dispatch(createTask(input, props.currentCategory.id));
+      dispatch(createTask(input, currentCategory.id));
       setInput('');
     }
   }
@@ -45,10 +66,6 @@ export default function Main(props) {
   function handeSidebarToggle() {
     props.onSidebarToggle();
   }
-
-  const currentCategory = props.currentCategory;
-  const currentTasks = props.currentTasks;
-  const completedTasks = props.completedTasks;
 
   return (
     <div className='main'>

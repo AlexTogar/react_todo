@@ -3,11 +3,13 @@ import React from 'react';
 import Application from './components/Application';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import tasksReducer from './reducers/tasksReducer';
+import allReducer from './reducers/allReducer';
 import Tasks from './Tasks.json';
+import Categories from './Categoies.json';
 
-const tasksStore = createStore(tasksReducer, Tasks);
-console.log(tasksStore);
+const tasksStore = createStore(allReducer);
+
+console.log(tasksStore);  
 
 ReactDOM.render(
   <Provider store={tasksStore}>
