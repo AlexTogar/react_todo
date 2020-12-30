@@ -15,7 +15,7 @@ function Sidebar(props, sidebarRef) {
 
   function handleCreateCategory(e) {
     e.preventDefault();
-    dispatch(createCategory(input));
+    if (input) dispatch(createCategory(input));
     setInput('');
   }
 
