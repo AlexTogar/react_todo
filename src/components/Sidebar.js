@@ -40,15 +40,16 @@ function Sidebar(props, sidebarRef) {
   }
 
   //create map [categoryId => numOfTasks] for each category
-  const importantTasks = tasks.filter((task) => task.important);
+  const activeTasks = tasks.filter((task) => task.completed === false);
+  const importantTasks = activeTasks.filter((task) => task.important);
   let tasksNumbers = Object.create(null);
   tasksNumbers = {
     [IMPORTANT_CAT_ID]: importantTasks.length,
-    [ALL_TASKS_CAT_ID]: tasks.length,
+    [ALL_TASKS_CAT_ID]: activeTasks.length,
   };
   categories.forEach((cat) => {
     if (![ALL_TASKS_CAT_ID, IMPORTANT_CAT_ID].includes(cat.id))
-      tasksNumbers[cat.id] = tasks.filter(
+      tasksNumbers[cat.id] = activeTasks.filter(
         (task) => task.categoryId === cat.id
       ).length;
   });
