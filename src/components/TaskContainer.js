@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import taskActions from '../actions/taskActions';
 const {
@@ -7,12 +7,9 @@ const {
   toggleImportantTask,
   updateTask,
 } = taskActions;
-/* 
-Contains given tasks
-*/
-export default function TaskContainer(props) {
+
+function TaskContainer(props, taskContainerRef) {
   const dispatch = useDispatch();
-  const tasks = useSelector((state) => state);
 
   function handleDeleteTask(e) {
     const id = e.target.parentElement.attributes.taskid.value;
@@ -47,7 +44,6 @@ export default function TaskContainer(props) {
     dispatch(updateTask(id, text));
   }
 
-  const category = props.category;
   const taskElements = props.tasks.map((task) => {
     return (
       <div
@@ -96,8 +92,10 @@ export default function TaskContainer(props) {
   });
 
   return (
-    <div className='task-container' ref={props.forwardedRef}>
+    <div className='task-container' ref={taskContainerRef}>
       {taskElements}
     </div>
   );
 }
+
+export default React.forwardRef(TaskContainer);

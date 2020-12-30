@@ -7,7 +7,7 @@ const { ALL_TASKS_CAT_ID, IMPORTANT_CAT_ID } = constants;
 const { createCategory, deleteCategory, selectCategory } = categoryActions;
 const { deleteTask } = taskActions;
 
-export default function Sidebar(props) {
+function Sidebar(props, sidebarRef) {
   const [input, setInput] = useState('');
   const categories = useSelector((state) => state.categories);
   const tasks = useSelector((state) => state.tasks);
@@ -79,7 +79,7 @@ export default function Sidebar(props) {
   });
 
   return (
-    <div className='sidebar' ref={props.forwardedSidebarRef}>
+    <div className='sidebar' ref={sidebarRef}>
       <div className='sidebar__title'>
         <div className='sidebar__title-text'>Category list</div>
       </div>
@@ -99,3 +99,5 @@ export default function Sidebar(props) {
     </div>
   );
 }
+
+export default React.forwardRef(Sidebar);

@@ -1,23 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TaskContainer from './TaskContainer';
 import taskActions from '../actions/taskActions';
 import constants from '../helper/constants';
 const { createTask } = taskActions;
 const { ALL_TASKS_CAT_ID, IMPORTANT_CAT_ID } = constants;
-/* 
-Contains active tasks list, completed tasks,
-input field for creating new tasks
-*/
-export default function Main(props) {
+
+function Main(props, sidebarIconRef) {
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories);
   const tasks = useSelector((state) => state.tasks);
 
-  const toggleContainerButtonRef = React.createRef();
-  const taskContainerRef = React.createRef();
-  const completedTaskContainerRef = React.createRef();
+  const toggleContainerButtonRef = useRef();
+  const taskContainerRef = useRef();
+  const completedTaskContainerRef = useRef();
 
   const currentCategory = categories.find((cat) => cat.selected);
   const activeTasks = tasks.filter((task) => task.completed === false);
@@ -72,7 +69,7 @@ export default function Main(props) {
       <div
         className='main__sidebar-icon icon'
         onClick={handeSidebarToggle}
-        ref={props.forwardedSidebarIconRef}
+        ref={sidebarIconRef}
       ></div>
       <div className='main__title'>
         <div
@@ -104,7 +101,7 @@ export default function Main(props) {
             </span>
           </p>
         </div>
-        <TaskContainer forwardedRef={taskContainerRef} tasks={completedTasks} />
+        <TaskContainer ref={taskContainerRef} tasks={completedTasks} />
       </div>
       <div className='main__input input'>
         <div className='main__icon icon'></div>
@@ -121,3 +118,5 @@ export default function Main(props) {
     </div>
   );
 }
+
+export default React.forwardRef(Main);

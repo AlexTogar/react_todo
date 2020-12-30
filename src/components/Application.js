@@ -13,9 +13,9 @@ export default function Application() {
   const sidebarRef = useRef();
   const sidebarIconRef = useRef();
 
-  function sidebarToggle() {  
-    const sidebar = this.sidebarRef.current;
-    const sidebarIcon = this.sidebarIconRef.current;
+  function sidebarToggle() {
+    const sidebar = sidebarRef.current;
+    const sidebarIcon = sidebarIconRef.current;
     sidebar.classList.toggle('sidebar_shown');
     sidebarIcon.classList.toggle('main__sidebar-icon_closing');
   }
@@ -33,13 +33,10 @@ export default function Application() {
     <>
       <Style theme={theme} />
       <MediaStyle />
-      <Sidebar
-        onSidebarToggle={sidebarToggle}
-        forwardedSidebarRef={sidebarRef}
-      />
+      <Sidebar onSidebarToggle={sidebarToggle} ref={sidebarRef} />
       <Main
         onSidebarToggle={sidebarToggle}
-        forwardedSidebarIconRef={sidebarIconRef}
+        ref={sidebarIconRef}
         onToggleTheme={toggleTheme}
       />
     </>
