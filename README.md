@@ -1,5 +1,5 @@
 # react_todo
-### This app is my personal project created with Reactjs (using styles naming according to BEM metodology).
+### This app is my personal project created with React+Redux (using styles naming according to BEM metodology).
 The app's design follows microsoft todo list app (but with less functionality).  
 Application is adapted for mobile devices and available here: https://alextogar.github.io/react_todo/
 ### Functionality:
