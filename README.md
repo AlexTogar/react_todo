@@ -9,8 +9,12 @@ Application is adapted for mobile devices and available here: https://alextogar.
 - mark a task as important;
 - complete the task;
 - restore task;
-- show/hide the list of completed tasks.
+- show/hide the list of completed tasks.  
+### To run the project locally:  
+- clone repository  
+- use "npm install && npm start" command  
 
+project will be available at: http://localhost:3000/dist/
 #### Dark theme  
 ![alt text](https://github.com/AlexTogar/react_todo/blob/master/screenshot_dark.png)
   
