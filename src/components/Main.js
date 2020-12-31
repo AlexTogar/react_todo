@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TaskContainer from './TaskContainer';
 import taskActions from '../actions/taskActions';
@@ -15,6 +15,7 @@ function Main(props, sidebarIconRef) {
   const toggleContainerButtonRef = useRef();
   const taskContainerRef = useRef();
   const completedTaskContainerRef = useRef();
+  const inputRef = useRef(null);
 
   const currentCategory = categories.find((cat) => cat.selected);
   const activeTasks = tasks.filter((task) => task.completed === false);
@@ -32,6 +33,12 @@ function Main(props, sidebarIconRef) {
       (task) => task.categoryId === currentCategory.id
     );
   }
+
+  //set focus on input
+  useEffect(() => {
+    console.log(inputRef);
+    inputRef.current.focus();
+  }, []);
 
   function handleInput(e) {
     setInput(e.target.value);
@@ -112,6 +119,7 @@ function Main(props, sidebarIconRef) {
             placeholder='Add a task'
             value={input}
             onChange={handleInput}
+            ref={inputRef}
           />
         </form>
       </div>
