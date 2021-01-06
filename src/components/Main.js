@@ -37,6 +37,8 @@ function Main(props, sidebarIconRef) {
   //set focus on input
   useEffect(() => {
     console.log(inputRef);
+    //hide completed tasks by default
+    toggleTaskContainer();
     inputRef.current.focus();
   }, []);
 
