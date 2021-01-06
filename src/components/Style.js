@@ -222,6 +222,7 @@ export default function Style(props) {
           margin-left: auto;
           border: none;
           cursor: pointer;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
         .main__theme-switcher-icon{
           border-radius: 100%;
