@@ -1,6 +1,6 @@
 import React from 'react';
 import trash from '../img/trash.svg';
-import trashHovered from '../img/trash_hovered.svg';
+// import trashHovered from '../img/trash_hovered.svg';
 import starCatIcon from '../img/star_cat_icon.svg';
 import home from '../img/home.svg';
 import iconCatDefault from '../img/icon_cat_default.svg';
@@ -8,7 +8,7 @@ import plus from '../img/plus.svg';
 import sidebarIcon from '../img/sidebar_icon.svg';
 import checkbox from '../img/checkbox.svg';
 import star from '../img/star.svg';
-import starHovered from '../img/star_hovered.svg';
+// import starHovered from '../img/star_hovered.svg';
 import starActive from '../img/star_acitve.svg';
 import arrowDown from '../img/arrow_down.svg';
 import arrowRight from '../img/arrow_right.svg';
@@ -72,9 +72,6 @@ export default function Style(props) {
           width: 20px;
           height: 20px;
           margin-right: 10px;
-        }
-        .application__trash-icon:hover {
-          background-image: url('${trashHovered}');
         }
         .sidebar {
           background-color: var(--sidebar-backgroukd-color);
@@ -320,10 +317,7 @@ export default function Style(props) {
           width: 20px;
           height: 20px;
         }
-        .task-container__task-star:hover {
-          background-image: url('${starHovered}');
-          transition: 0.13s;
-        }
+
         /* mark task as important anmation */
         @keyframes star-activation {
           from {

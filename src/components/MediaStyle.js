@@ -1,9 +1,20 @@
 import React from 'react';
+import starHovered from '../img/star_hovered.svg';
+import trashHovered from '../img/trash_hovered.svg';
 
 export default function MediaStyle(props) {
   return (
     <style>
       {`
+        @media (min-width: 651px){
+          .application__trash-icon:hover {
+            background-image: url('${trashHovered}');
+          }
+          .task-container__task-star:hover {
+            background-image: url('${starHovered}');
+            transition: 0.13s;
+          }
+        }
         @media (max-width: 650px) {
           .sidebar {
             width: 50%;
