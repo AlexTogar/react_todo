@@ -214,13 +214,20 @@ export default function Style(props) {
           color: var(--accent-color);
         }
         .main__theme-switcher{
-          height: 20px;
-          width: 20px;
-          border-radius: 100%;
-          background-color: var(--text-color);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 35px;
+          width: 35px;
           margin-left: auto;
           border: none;
           cursor: pointer;
+        }
+        .main__theme-switcher-icon{
+          border-radius: 100%;
+          background-color: var(--text-color);
+          width: 20px;
+          height: 20px;
         }
         .active-task-container {
           max-height: 77%;

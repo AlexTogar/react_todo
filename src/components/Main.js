@@ -88,7 +88,9 @@ function Main(props, sidebarIconRef) {
         <div
           className='main__theme-switcher'
           onPointerDown={props.onToggleTheme}
-        ></div>
+        >
+          <div className='main__theme-switcher-icon'></div>
+        </div>
       </div>
       <div className='active-task-container'>
         <TaskContainer category={currentCategory} tasks={currentTasks} />
