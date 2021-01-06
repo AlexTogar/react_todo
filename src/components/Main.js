@@ -75,7 +75,7 @@ function Main(props, sidebarIconRef) {
     <div className='main'>
       <div
         className='main__sidebar-icon icon'
-        onClick={handeSidebarToggle}
+        onPointerDown={handeSidebarToggle}
         ref={sidebarIconRef}
       ></div>
       <div className='main__title'>
@@ -85,7 +85,7 @@ function Main(props, sidebarIconRef) {
         <p className='main__title-text'>{currentCategory.name}</p>
         <div
           className='main__theme-switcher'
-          onClick={props.onToggleTheme}
+          onPointerDown={props.onToggleTheme}
         ></div>
       </div>
       <div className='active-task-container'>
@@ -95,7 +95,7 @@ function Main(props, sidebarIconRef) {
       <div className='completed-task-container' ref={completedTaskContainerRef}>
         <div
           className='completed-task-container__toggle'
-          onClick={toggleTaskContainer}
+          onPointerDown={toggleTaskContainer}
         >
           <div
             className='completed-task-container__arrow completed-task-container__arrow_down icon'

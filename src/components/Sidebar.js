@@ -61,7 +61,7 @@ function Sidebar(props, sidebarRef) {
           cat.selected ? 'sidebar__category_active' : ''
         }`}
         key={cat.id}
-        onClick={handleSelectCategory}
+        onPointerDown={handleSelectCategory}
         catid={cat.id}
       >
         <div
@@ -71,7 +71,7 @@ function Sidebar(props, sidebarRef) {
         {cat.deletable ? (
           <div
             className='icon application__trash-icon'
-            onClick={handleDeleteCategory}
+            onPointerDown={handleDeleteCategory}
           ></div>
         ) : null}
         <span className='sidebar__tasks-number'>{tasksNumbers[cat.id]}</span>

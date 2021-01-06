@@ -52,13 +52,13 @@ function TaskContainer(props, taskContainerRef) {
         }`}
         key={task.id}
         taskid={task.id}
-        onClick={enableTaskInput}
+        onPointerDown={enableTaskInput}
         onBlur={disableTaskInput}
         onChange={handleInput}
       >
         <div
           className='task-container__pseudo-checkbox'
-          onClick={handleToggleCompleteTask}
+          onPointerDown={handleToggleCompleteTask}
         ></div>
         <input type='checkbox' className='task-container__task-checkbox' />
         <input
@@ -78,14 +78,14 @@ function TaskContainer(props, taskContainerRef) {
 
         <div
           className='icon application__trash-icon'
-          onClick={handleDeleteTask}
+          onPointerDown={handleDeleteTask}
         ></div>
 
         <div
           className={`task-container__task-star ${
             task.important ? 'task-container__task-star_acitve' : ''
           } icon`}
-          onClick={handleToggleImportantTask}
+          onPointerDown={handleToggleImportantTask}
         ></div>
       </div>
     );

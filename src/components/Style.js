@@ -46,6 +46,9 @@ export default function Style(props) {
           --splitter-line-color: ${splitterLineColor};
           --text-color: ${textColor};
         }
+        html{
+          touch-action: manipulation;
+        }
         html,
         body {
           height: 100%;
