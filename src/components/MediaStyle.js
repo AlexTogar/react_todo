@@ -15,6 +15,16 @@ export default function MediaStyle(props) {
             transition: 0.13s;
           }
         }
+
+        @media (max-height: 700px) {
+          .sidebar {
+            height: 100%;
+          }
+          .main{
+            height: 100%;
+          }
+        }
+
         @media (max-width: 650px) {
           .sidebar {
             width: 50%;
