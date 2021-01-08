@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import taskActions from '../actions/taskActions';
 const {
@@ -8,51 +8,61 @@ const {
   updateTask,
 } = taskActions;
 
-function TaskContainer(props, taskContainerRef) {
+function TaskContainer(
+  props: { tasks?: Task[]; category?: Category },
+  taskContainerRef: React.RefObject<HTMLDivElement>
+) {
   const dispatch = useDispatch();
 
-  function handleDeleteTask(e) {
-    const id = e.target.parentElement.attributes.taskid.value;
+  function handleDeleteTask(e: React.PointerEvent<HTMLDivElement>): void {
+    // @ts-ignore
+    const id = e.target.parentElement.attributes['data-taskid'].value;
     dispatch(deleteTask(id));
   }
 
-  function handleToggleCompleteTask(e) {
+  function handleToggleCompleteTask(
+    e: React.PointerEvent<HTMLDivElement>
+  ): void {
     const taskElement = e.currentTarget.parentElement;
-    taskElement.classList.toggle('task-container__task_checked');
+    taskElement?.classList.toggle('task-container__task_checked');
     setTimeout(() => {
-      const id = taskElement.attributes.taskid.value;
+      // @ts-ignore
+      const id = taskElement?.attributes['data-taskid'].value;
       dispatch(toggleCompleteTask(id));
     }, 150);
   }
 
-  function handleToggleImportantTask(e) {
-    const id = e.target.parentElement.attributes.taskid.value;
+  function handleToggleImportantTask(
+    e: React.PointerEvent<HTMLDivElement>
+  ): void {
+    // @ts-ignore
+    const id = e.target.parentElement.attributes['data-taskid'].value;
     dispatch(toggleImportantTask(id));
   }
 
-  function enableTaskInput(e) {
+  function enableTaskInput(e: React.FocusEvent<HTMLInputElement>): void {
     e.target.disabled = false;
   }
 
-  function disableTaskInput(e) {
+  function disableTaskInput(e: React.FocusEvent<HTMLInputElement>): void {
     e.target.disabled = true;
   }
 
-  function handleInput(e) {
-    const id = e.currentTarget.attributes.taskid.value;
+  function handleInput(e: React.ChangeEvent<HTMLInputElement>): void {
+    // @ts-ignore
+    const id = e.currentTarget.attributes['data-taskid'].value;
     const text = e.target.value;
     dispatch(updateTask(id, text));
   }
 
-  const taskElements = props.tasks.map((task) => {
+  const taskElements = props.tasks?.map((task, index) => {
     return (
       <div
         className={`task-container__task ${
           task.completed ? 'task-container__task_checked' : ''
         }`}
         key={task.id}
-        taskid={task.id}
-        onPointerDown={enableTaskInput}
+        data-taskid={task.id}
         onBlur={disableTaskInput}
         onChange={handleInput}
       >
@@ -70,6 +80,7 @@ function TaskContainer(props, taskContainerRef) {
                 }
               : {}
           }
+          onFocus={enableTaskInput}
           className='task-container__task-text'
           value={task.text}
           type='text'
@@ -98,4 +109,5 @@ function TaskContainer(props, taskContainerRef) {
   );
 }
 
+// @ts-ignore
 export default React.forwardRef(TaskContainer);

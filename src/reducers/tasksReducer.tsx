@@ -1,6 +1,6 @@
 import Tasks from '../Tasks.json';
 import Task from '../helper/TaskClass';
-const tasksReducer = (tasks = Tasks, action) => {
+const tasksReducer = (tasks = Tasks, action: any) => {
   const text = action.payload?.text;
   const id = action.payload?.id;
   const categoryId = action.payload?.categoryId;

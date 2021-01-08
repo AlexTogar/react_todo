@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import constants from '../helper/constants';
 import categoryActions from '../actions/categoryActions';
@@ -7,35 +7,37 @@ const { ALL_TASKS_CAT_ID, IMPORTANT_CAT_ID } = constants;
 const { createCategory, deleteCategory, selectCategory } = categoryActions;
 const { deleteTask } = taskActions;
 
-function Sidebar(props, sidebarRef) {
+function Sidebar(props: any, sidebarRef: React.RefObject<HTMLDivElement>) {
   const [input, setInput] = useState('');
-  const categories = useSelector((state) => state.categories);
-  const tasks = useSelector((state) => state.tasks);
+  const categories = useSelector((state: Store) => state.categories);
+  const tasks = useSelector((state: Store) => state.tasks);
   const dispatch = useDispatch();
 
-  function handleCreateCategory(e) {
+  function handleCreateCategory(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
     if (input) dispatch(createCategory(input));
     setInput('');
   }
 
-  function handleSelectCategory(e) {
-    const id = e.currentTarget.attributes.catid.value;
+  function handleSelectCategory(e: React.PointerEvent<HTMLDivElement>): void {
+    // @ts-ignore
+    const id = e.currentTarget.attributes['data-catid'].value;
     dispatch(selectCategory(id));
     //hide sidebar after category selection on mobile version
     props.onSidebarToggle();
   }
 
-  function handleDeleteCategory(e) {
+  function handleDeleteCategory(e: React.PointerEvent<HTMLDivElement>): void {
     e.stopPropagation();
-    const id = e.target.parentElement.attributes.catid.value;
+    // @ts-ignore
+    const id = e.target.parentElement.attributes['data-catid'].value;
     dispatch(deleteCategory(id));
     tasks.forEach((task) => {
       if (task.categoryId === id) dispatch(deleteTask(task.id));
     });
   }
 
-  function handleInput(e) {
+  function handleInput(e: React.ChangeEvent<HTMLInputElement>): void {
     setInput(e.target.value);
   }
 
@@ -62,7 +64,7 @@ function Sidebar(props, sidebarRef) {
         }`}
         key={cat.id}
         onPointerDown={handleSelectCategory}
-        catid={cat.id}
+        data-catid={cat.id}
       >
         <div
           className={`sidebar__cat-icon sidebar__cat-icon_${cat.icon} icon`}
@@ -101,4 +103,5 @@ function Sidebar(props, sidebarRef) {
   );
 }
 
+// @ts-ignore
 export default React.forwardRef(Sidebar);

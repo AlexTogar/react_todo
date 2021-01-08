@@ -6,18 +6,21 @@ import constants from '../helper/constants';
 const { createTask } = taskActions;
 const { ALL_TASKS_CAT_ID, IMPORTANT_CAT_ID } = constants;
 
-function Main(props, sidebarIconRef) {
+function Main(props: any, sidebarIconRef: React.RefObject<HTMLDivElement>) {
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.categories);
-  const tasks = useSelector((state) => state.tasks);
+  const categories: Category[] = useSelector(
+    (state: Store) => state.categories
+  );
+  const tasks: Task[] = useSelector((state: Store) => state.tasks);
 
-  const toggleContainerButtonRef = useRef();
-  const taskContainerRef = useRef();
-  const completedTaskContainerRef = useRef();
-  const inputRef = useRef(null);
+  const toggleContainerButtonRef = useRef<HTMLDivElement>(null);
+  const taskContainerRef = useRef<HTMLDivElement>(null);
+  const completedTaskContainerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const currentCategory = categories.find((cat) => cat.selected);
+  const currentCategory =
+    categories.find((cat) => cat.selected) || categories[0];
   const activeTasks = tasks.filter((task) => task.completed === false);
   const importantTasks = activeTasks.filter((task) => task.important);
   const completedTasks = tasks.filter((task) => task.completed);
@@ -39,14 +42,14 @@ function Main(props, sidebarIconRef) {
     console.log(inputRef);
     //hide completed tasks by default
     toggleTaskContainer();
-    inputRef.current.focus();
+    inputRef.current?.focus();
   }, []);
 
-  function handleInput(e) {
+  function handleInput(e: React.ChangeEvent<HTMLInputElement>): void {
     setInput(e.target.value);
   }
 
-  function handleCreateTask(e) {
+  function handleCreateTask(e: React.FormEvent): void {
     e.preventDefault();
     if (input) {
       dispatch(createTask(input, currentCategory.id));
@@ -54,22 +57,22 @@ function Main(props, sidebarIconRef) {
     }
   }
 
-  function toggleTaskContainer() {
+  function toggleTaskContainer(): void {
     const completedTaskContainer = completedTaskContainerRef.current;
     const taskContainer = taskContainerRef.current;
     const toggleContainerButton = toggleContainerButtonRef.current;
 
-    completedTaskContainer.classList.toggle('completed-task-container_hidden');
-    taskContainer.classList.toggle('task-container_hidden');
-    toggleContainerButton.classList.toggle(
+    completedTaskContainer?.classList.toggle('completed-task-container_hidden');
+    taskContainer?.classList.toggle('task-container_hidden');
+    toggleContainerButton?.classList.toggle(
       'completed-task-container__arrow_down'
     );
-    toggleContainerButton.classList.toggle(
+    toggleContainerButton?.classList.toggle(
       'completed-task-container__arrow_right'
     );
   }
 
-  function handeSidebarToggle() {
+  function handeSidebarToggle(): void {
     props.onSidebarToggle();
   }
 
@@ -131,4 +134,5 @@ function Main(props, sidebarIconRef) {
   );
 }
 
+// @ts-ignore
 export default React.forwardRef(Main);

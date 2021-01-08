@@ -1,7 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
+
 export default class Category {
+  name: string;
+  icon: string;
+  selected: boolean;
+  deletable: boolean;
+  id: string;
   constructor(
-    name,
+    name: string,
     icon = '',
     selected = false,
     deletable = false,

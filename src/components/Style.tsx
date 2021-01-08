@@ -14,7 +14,7 @@ import arrowDown from '../img/arrow_down.svg';
 import arrowRight from '../img/arrow_right.svg';
 import themes from '../colorThemes.json';
 
-export default function Style(props) {
+export default function Style(props: { theme: Theme }) {
   const {
     globalBackgroundColor,
     mainBackgroundColor,

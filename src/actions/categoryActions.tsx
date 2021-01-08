@@ -1,5 +1,5 @@
 export default {
-  createCategory: (name) => {
+  createCategory: (name: string) => {
     return {
       type: 'CREATE_CATEGORY',
       payload: {
@@ -7,13 +7,13 @@ export default {
       },
     };
   },
-  deleteCategory: (id) => {
+  deleteCategory: (id: string) => {
     return {
       type: 'DELETE_CATEGORY',
       payload: { id },
     };
   },
-  selectCategory: (id) => {
+  selectCategory: (id: string) => {
     return {
       type: 'SELECT_CATEGORY',
       payload: { id },

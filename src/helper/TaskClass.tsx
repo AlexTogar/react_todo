@@ -3,9 +3,14 @@ import constants from './constants';
 const { IMPORTANT_CAT_ID } = constants;
 
 export default class Task {
+  text: string;
+  categoryId: string;
+  completed: boolean;
+  important: boolean;
+  id: string;
   constructor(
     text = '',
-    categoryId,
+    categoryId: string,
     completed = false,
     important = false,
     id = uuidv4()

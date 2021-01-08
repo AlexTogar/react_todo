@@ -1,5 +1,5 @@
 export default {
-  createTask: (text, categoryId) => {
+  createTask: (text: string, categoryId: string) => {
     return {
       type: 'CREATE_TASK',
       payload: {
@@ -8,7 +8,7 @@ export default {
       },
     };
   },
-  deleteTask: (id) => {
+  deleteTask: (id: string) => {
     return {
       type: 'DELETE_TASK',
       payload: {
@@ -16,7 +16,7 @@ export default {
       },
     };
   },
-  toggleCompleteTask: (id) => {
+  toggleCompleteTask: (id: string) => {
     return {
       type: 'TOGGLE_COMPLETE_TASK',
       payload: {
@@ -24,7 +24,7 @@ export default {
       },
     };
   },
-  toggleImportantTask: (id) => {
+  toggleImportantTask: (id: string) => {
     return {
       type: 'TOGGLE_IMPORTANT_TASK',
       payload: {
@@ -32,7 +32,7 @@ export default {
       },
     };
   },
-  updateTask: (id, text) => {
+  updateTask: (id: string, text: string) => {
     return {
       type: 'UPDATE_TASK',
       payload: {

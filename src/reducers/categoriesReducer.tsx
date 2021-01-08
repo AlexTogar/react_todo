@@ -3,7 +3,7 @@ import constants from '../helper/constants';
 import Categories from '../Categoies.json';
 const { ALL_TASKS_CAT_ID } = constants;
 
-const categoriesReducer = (categories = Categories, action) => {
+const categoriesReducer = (categories = Categories, action: any) => {
   const id = action.payload?.id;
   const name = action.payload?.name;
   switch (action.type) {
@@ -14,7 +14,7 @@ const categoriesReducer = (categories = Categories, action) => {
     case 'DELETE_CATEGORY':
       const catToDelete = categories.find((cat) => cat.id === id);
       let newCategories = categories;
-      if (catToDelete.selected) {
+      if (catToDelete?.selected) {
         newCategories = categories.map((cat) => {
           if (cat.id === ALL_TASKS_CAT_ID) {
             cat.selected = true;

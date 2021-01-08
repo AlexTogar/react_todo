@@ -2,7 +2,7 @@ import React from 'react';
 import starHovered from '../img/star_hovered.svg';
 import trashHovered from '../img/trash_hovered.svg';
 
-export default function MediaStyle(props) {
+export default function MediaStyle(props: any) {
   return (
     <style>
       {`
