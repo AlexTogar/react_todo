@@ -1,6 +1,5 @@
 import React from 'react';
 import trash from '../img/trash.svg';
-// import trashHovered from '../img/trash_hovered.svg';
 import starCatIcon from '../img/star_cat_icon.svg';
 import home from '../img/home.svg';
 import iconCatDefault from '../img/icon_cat_default.svg';
@@ -8,7 +7,6 @@ import plus from '../img/plus.svg';
 import sidebarIcon from '../img/sidebar_icon.svg';
 import checkbox from '../img/checkbox.svg';
 import star from '../img/star.svg';
-// import starHovered from '../img/star_hovered.svg';
 import starActive from '../img/star_acitve.svg';
 import arrowDown from '../img/arrow_down.svg';
 import arrowRight from '../img/arrow_right.svg';
@@ -56,7 +54,20 @@ export default function Style(props: { theme: Theme }) {
         input {
           color: var(--text-color);
         }
-        .application {
+        .loading {
+          display: flex;
+          width: 100vw;
+          heigth: 100vh;
+          justify-content: center;
+          align-items: center;
+          color: var(--text-color);
+          backgroundColor: var(--global-background-color);
+        }
+        .loading__message{
+          display: inline-block;
+          font-size: 30px;
+        }
+        .app {
           font-family: sans-serif;
           font-size: 16px;
           display: flex;
@@ -66,7 +77,7 @@ export default function Style(props: { theme: Theme }) {
           background-color: var(--global-background-color);
           color: var(--text-color);
         }
-        .application__trash-icon {
+        .app__trash-icon {
           cursor: pointer;
           background-image: url('${trash}');
           width: 20px;
