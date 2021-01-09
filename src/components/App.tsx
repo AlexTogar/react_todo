@@ -1,12 +1,20 @@
-import React, { useState, useRef } from 'react';
-import Sidebar from './Sidebar';
-import Main from './Main';
+import React, { useState, useRef, Suspense } from 'react';
+//redux stuff
+import { createStore } from 'redux';
+import allReducer from '../reducers/allReducer';
+import { Provider } from 'react-redux';
+//components
+const Sidebar = React.lazy(() => import('./Sidebar'));
+const Main = React.lazy(() => import('./Main'));
 import Style from './Style';
 import MediaStyle from './MediaStyle';
 import constants from '../helper/constants';
+import Loading from './Loading';
 const { DEFAULT_THEME } = constants;
 
-export default function Application() {
+const store = createStore(allReducer);
+
+export default function App() {
   const [theme, setTheme] = useState(
     (localStorage.getItem('theme') as Theme) || (DEFAULT_THEME as Theme)
   );
@@ -33,12 +41,16 @@ export default function Application() {
     <>
       <Style theme={theme} />
       <MediaStyle />
-      <Sidebar ref={sidebarRef} onSidebarToggle={sidebarToggle} />
-      <Main
-        ref={sidebarIconRef}
-        onToggleTheme={toggleTheme}
-        onSidebarToggle={sidebarToggle}
-      />
+      <Suspense fallback={<Loading theme={theme} />}>
+        <Provider store={store}>
+          <Sidebar ref={sidebarRef} onSidebarToggle={sidebarToggle} />
+          <Main
+            ref={sidebarIconRef}
+            onToggleTheme={toggleTheme}
+            onSidebarToggle={sidebarToggle}
+          />
+        </Provider>
+      </Suspense>
     </>
   );
 }

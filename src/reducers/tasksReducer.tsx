@@ -1,5 +1,5 @@
 import Tasks from '../Tasks.json';
-import Task from '../helper/TaskClass';
+import Task from '../helper/taskClass';
 const tasksReducer = (tasks = Tasks, action: any) => {
   const text = action.payload?.text;
   const id = action.payload?.id;

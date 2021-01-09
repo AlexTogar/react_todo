@@ -1,4 +1,4 @@
-import Category from '../helper/CategoryClass';
+import Category from '../helper/categoryClass';
 import constants from '../helper/constants';
 import Categories from '../Categoies.json';
 const { ALL_TASKS_CAT_ID } = constants;
