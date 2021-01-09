@@ -33,11 +33,9 @@ export default function Application() {
     <>
       <Style theme={theme} />
       <MediaStyle />
-      {/* @ts-ignore */}
       <Sidebar ref={sidebarRef} onSidebarToggle={sidebarToggle} />
       <Main
         ref={sidebarIconRef}
-        // @ts-ignore
         onToggleTheme={toggleTheme}
         onSidebarToggle={sidebarToggle}
       />
