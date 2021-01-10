@@ -30,4 +30,7 @@ module.exports = {
       template: './src/index.html',
     }),
   ],
+  optimization: {
+    minimize: true,
+  },
 };
