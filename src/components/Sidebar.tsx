@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import constants from '../helper/constants';
 import categoryActions from '../actions/categoryActions';

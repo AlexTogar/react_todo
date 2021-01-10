@@ -43,9 +43,7 @@ export default React.forwardRef(
 
     //set focus on input
     useEffect(() => {
-      console.log(inputRef);
-      //hide completed tasks by default
-      toggleTaskContainer();
+      toggleTaskContainer(); //hide completed tasks by default
       inputRef.current?.focus();
     }, []);
 
