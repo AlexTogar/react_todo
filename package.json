@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"webpack --mode development --watch\" \"live-server --open=./dist/ --port=3000\"",
-    "build": "webpack --mode production"
+    "build": "rm -rf ./docs/* && webpack --mode production",
+    "update:docs": "cp -af ./dist/* ./docs"
   },
   "keywords": [],
   "author": "",

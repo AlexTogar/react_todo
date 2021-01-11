@@ -7,7 +7,7 @@ export default function MediaStyle(props: any) {
     <style>
       {`
         @media (min-width: 651px){
-          .application__trash-icon:hover {
+          .app__trash-icon:hover {
             background-image: url('${trashHovered}');
           }
           .task-container__task-star:hover {
@@ -69,6 +69,10 @@ export default function MediaStyle(props: any) {
           .main__sidebar-icon_closing {
             animation: icon-open-animation 0.2s ease-in;
             animation-fill-mode: forwards;
+          }
+
+          .task-container__task-text {
+            width: 75%;
           }
         }
         

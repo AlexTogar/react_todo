@@ -73,7 +73,7 @@ export default React.forwardRef(
           <p className='sidebar__cat-text'>{cat.name}</p>
           {cat.deletable ? (
             <div
-              className='icon application__trash-icon'
+              className='icon app__trash-icon'
               onPointerDown={handleDeleteCategory}
             ></div>
           ) : null}

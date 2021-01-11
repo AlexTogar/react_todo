@@ -40,8 +40,8 @@ function TaskContainer(
     dispatch(toggleImportantTask(id));
   }
 
-  function enableTaskInput(e: React.FocusEvent<HTMLInputElement>): void {
-    e.target.disabled = false;
+  function enableTaskInput(e: React.PointerEvent<HTMLInputElement>): void {
+    e.currentTarget.disabled = false;
   }
 
   function disableTaskInput(e: React.FocusEvent<HTMLInputElement>): void {
@@ -72,23 +72,17 @@ function TaskContainer(
         ></div>
         <input type='checkbox' className='task-container__task-checkbox' />
         <input
-          style={
-            task.completed
-              ? {
-                  color: '#939393',
-                  textDecoration: 'line-through',
-                }
-              : {}
-          }
-          onFocus={enableTaskInput}
-          className='task-container__task-text'
+          onPointerDown={enableTaskInput}
+          className={`task-container__task-text ${
+            task.completed ? 'task-container__task-text__crossed' : ''
+          }`}
           value={task.text}
           type='text'
           disabled
         />
 
         <div
-          className='icon application__trash-icon'
+          className='icon app__trash-icon'
           onPointerDown={handleDeleteTask}
         ></div>
 

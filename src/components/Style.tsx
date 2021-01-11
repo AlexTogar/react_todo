@@ -83,6 +83,8 @@ export default function Style(props: { theme: Theme }) {
           width: 20px;
           height: 20px;
           margin-right: 10px;
+          margin-left: auto;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
         .sidebar {
           background-color: var(--sidebar-backgroukd-color);
@@ -273,6 +275,7 @@ export default function Style(props: { theme: Theme }) {
           left: 5px;
           z-index: 10;
           cursor: pointer;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
         .task-container__task {
           display: flex;
@@ -324,7 +327,10 @@ export default function Style(props: { theme: Theme }) {
           background-color: inherit;
           border: none;
           font-size: 16px;
-          flex-grow: 1;
+        }
+        .task-container__task-text__crossed{
+          color: #939393;
+          text-decoration: line-through;
         }
         .task-container__task-text:focus,
         .task-container__task-text:active {
@@ -335,6 +341,7 @@ export default function Style(props: { theme: Theme }) {
           cursor: pointer;
           width: 20px;
           height: 20px;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         /* mark task as important anmation */
