@@ -5,7 +5,7 @@ module.exports = {
   entry: './src/index.tsx',
   output: {
     path: path.join(__dirname, '/dist'),
-    filename: 'index-bundle.js',
+    filename: '[name]-bundle.js',
   },
   module: {
     rules: [
@@ -32,5 +32,8 @@ module.exports = {
   ],
   optimization: {
     minimize: true,
+    splitChunks: {
+      chunks: 'all',
+    },
   },
 };

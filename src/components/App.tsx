@@ -4,8 +4,10 @@ import { createStore } from 'redux';
 import allReducer from '../reducers/allReducer';
 import { Provider } from 'react-redux';
 //components
-const Sidebar = React.lazy(() => import('./Sidebar'));
-const Main = React.lazy(() => import('./Main'));
+const Sidebar = React.lazy(
+  () => import(/* webpackChunkName: "sidebar" */ './Sidebar')
+);
+const Main = React.lazy(() => import(/* webpackChunkName: "main" */ './Main'));
 import Style from './Style';
 import MediaStyle from './MediaStyle';
 import constants from '../helper/constants';
