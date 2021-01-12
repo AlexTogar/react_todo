@@ -17,9 +17,14 @@ const { DEFAULT_THEME } = constants;
 const store = createStore(allReducer);
 
 export default function App() {
-  const [theme, setTheme] = useState(
-    (localStorage.getItem('theme') as Theme) || (DEFAULT_THEME as Theme)
-  );
+  let initialTheme: Theme;
+  try {
+    initialTheme =
+      (localStorage.getItem('theme') as Theme) || (DEFAULT_THEME as Theme);
+  } catch {
+    initialTheme = DEFAULT_THEME as Theme;
+  }
+  const [theme, setTheme] = useState(initialTheme);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const sidebarIconRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +39,9 @@ export default function App() {
     let currentTheme: Theme;
     setTheme((prevTheme: Theme) => {
       currentTheme = prevTheme === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('theme', currentTheme);
+      try {
+        localStorage.setItem('theme', currentTheme);
+      } catch {}
       return currentTheme;
     });
   }
