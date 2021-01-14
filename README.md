@@ -6,11 +6,12 @@
 
 - ##### React + Redux
 - ##### TypeScript
-- ##### BEM for Styles
+- ##### BEM for styles
 - ##### Webpack
 
 The app's design follows microsoft todo list app.  
 Application **is adapted for mobile devices** and available here: https://alextogar.github.io/react_todo/
+Once opened - you can use it **without internet** due to caching with **service-worker**
 
 #### Functionality:
 
