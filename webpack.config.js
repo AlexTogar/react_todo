@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -28,6 +29,25 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
+    }),
+    new WebpackPwaManifest({
+      publicPath: '.',
+      name: 'React Todo',
+      short_name: 'Todo',
+      start_url: '.',
+      description: 'Todo list written with React',
+      background_color: '#2D2F30',
+      theme_color: '#3e69df',
+      crossorigin: null,
+      ios: true,
+      includeDirectory: true,
+      icons: [
+        {
+          src: path.resolve('src/img/maskable_icon_x512.png'),
+          sizes: [96, 128, 144, 192, 256, 384, 512], // multiple sizes
+          purpose: 'maskable any',
+        },
+      ],
     }),
   ],
   optimization: {
