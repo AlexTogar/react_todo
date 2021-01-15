@@ -1,0 +1,59 @@
+{
+  "icons": [
+    {
+      "src": "./icon_1024x1024.ddce0f62aeaac2a054d0f30477968044.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon_512x512.0fc074715e41c110446328997e0f7c7d.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "./icon_384x384.b1946637475bc96993a610651c12d59a.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "./icon_256x256.389a9fda72519d74006e119899073858.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "./icon_192x192.a7de2f5cbfcfb8e2f284ccda88e86fdb.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "./icon_144x144.b4444bcdef13859d9717f71e194146bb.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "./icon_128x128.0e6e994bae1a4472e6c2338418ca503d.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "./icon_96x96.f1309cbbd8944ba2807d7844c66f2342.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "name": "React Todo",
+  "short_name": "Todo",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": ".",
+  "description": "Todo list written with React",
+  "background_color": "#2D2F30",
+  "theme_color": "#3e69df"
+}

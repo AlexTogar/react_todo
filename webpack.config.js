@@ -43,9 +43,14 @@ module.exports = {
       includeDirectory: true,
       icons: [
         {
-          src: path.resolve('src/img/maskable_icon_x512.png'),
+          src: path.resolve('src/img/icon_x1024.png'),
           sizes: [96, 128, 144, 192, 256, 384, 512], // multiple sizes
           purpose: 'maskable any',
+        },
+        {
+          src: path.resolve('src/img/icon_x1024.png'),
+          size: 1024,
+          ios: 'startup',
         },
       ],
     }),
