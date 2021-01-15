@@ -9,7 +9,7 @@ workbox.core.clientsClaim();
 workbox.precaching.precacheAndRoute([
   {
     "url": "index.html",
-    "revision": "bb6fbfbe5d84c0bc3102bb12d83d6718"
+    "revision": "b406463ba5388dff6a9ad20103333653"
   },
   {
     "url": "405-bundle.js",
