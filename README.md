@@ -2,16 +2,17 @@
 
 ### This app is my personal project created with React
 
-#### stack:
+#### I used:
 
 - ##### React + Redux
 - ##### TypeScript
 - ##### BEM for styles
 - ##### Webpack
+- ##### PWA
 
 The app's design follows microsoft todo list app.  
 Application **is adapted for mobile devices** and available here: https://alextogar.github.io/react_todo/
-Once opened - you can use it **without internet** due to caching with **service-worker**
+Once opened - you can use it **without internet** or **install** on your devise as **PWA**.
 
 #### Functionality:
 
