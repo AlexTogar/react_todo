@@ -325,6 +325,7 @@ export default function Style(props: { theme: Theme }) {
         }
         .task-container__task-text {
           background-color: inherit;
+          width: 75%;
           border: none;
           font-size: 16px;
         }

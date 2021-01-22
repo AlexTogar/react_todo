@@ -70,10 +70,6 @@ export default function MediaStyle(props: any) {
             animation: icon-open-animation 0.2s ease-in;
             animation-fill-mode: forwards;
           }
-
-          .task-container__task-text {
-            width: 75%;
-          }
         }
         
       `}

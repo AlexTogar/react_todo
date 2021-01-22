@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import taskActions from '../actions/taskActions';
 const {
   deleteTask,
@@ -72,6 +72,7 @@ function TaskContainer(
         ></div>
         <input type='checkbox' className='task-container__task-checkbox' />
         <input
+          onClick={enableTaskInput}
           onPointerDown={enableTaskInput}
           className={`task-container__task-text ${
             task.completed ? 'task-container__task-text__crossed' : ''
